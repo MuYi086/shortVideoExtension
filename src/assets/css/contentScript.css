@@ -1,0 +1,22 @@
+html {
+  font-size: 12px !important;
+}
+#monitor {
+  position: fixed;
+  width: 250px;
+  height: 400px;
+  background: white;
+  bottom: 0;
+  padding: 10px;
+  right: 10px;
+  overflow: hidden;
+}
+#monitor .preview .line i {
+  display: inline-block;
+  font-style: normal;
+  font-weight: bold;
+}
+#monitor .preview .line span {
+  display: inline-block;
+  word-break: break-word;
+}

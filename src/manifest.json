@@ -1,0 +1,58 @@
+{
+  "manifest_version": 3,
+  "name": "chrome-extension-name",
+  "description": "chrome extension",
+  "version": "0.0.1",
+  "icons":{
+    "128":"img/logo.png"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "tabs",
+    "debugger",
+    "contextMenus",
+    "https://*.douyin.com/*",
+    "https://*.kuaishou.com/*",
+    "https://*.gifshow.com/*",
+    "https://*.ixigua.com/*",
+    "https://*.bilibili.com/*",
+    "https://haokan.baidu.com/*",
+    "https://tv.sohu.com/*",
+    "https://weibo.com/*",
+    "https://v.youku.com/*",
+    "https://play.tudou.com/*",
+    "https://v.qq.com/*"
+  ],
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "host_permissions": ["https://*.kuaishou.com/*"],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.douyin.com/*",
+        "https://*.kuaishou.com/*",
+        "https://*.gifshow.com/*",
+        "https://*.ixigua.com/*",
+        "https://*.bilibili.com/*",
+		    "https://haokan.baidu.com/*",
+        "https://tv.sohu.com/*",
+        "https://weibo.com/*",
+        "https://v.youku.com/*",
+        "https://play.tudou.com/*",
+        "https://v.qq.com/*"
+      ],
+      "js": [
+        "js/content.js"
+      ],
+      "css": [
+        "css/contentScript.css"
+      ],
+      "run_at": "document_end"
+    }
+  ]
+}
