@@ -1,5 +1,4 @@
 const Util = require('../Util')
-const kuaiShouData = require('./kuaiShouData')
 const kuaiShouDataH5 = require('./kuaiShouDataH5')
 class PageData {
   constructor () {}
@@ -8,7 +7,7 @@ class PageData {
       case 'douyin':
         break
       case 'kuaishou':
-        return kuaiShouData.getPageData()
+        return kuaiShouDataH5.getPageData()
       case 'kuaishouH5':
         return kuaiShouDataH5.getPageData()
       case 'xigua':

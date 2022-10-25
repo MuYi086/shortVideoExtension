@@ -30,7 +30,7 @@
   "background": {
     "service_worker": "js/background.js"
   },
-  "host_permissions": ["https://*.kuaishou.com/*"],
+  "host_permissions": ["*"],
   "content_scripts": [
     {
       "matches": [
