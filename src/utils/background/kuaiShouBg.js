@@ -2,7 +2,6 @@ const Api = require('@/utils/api')
 const kuaiShouBg = () => {
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.apiName === 'kuaiShouWdPhotoInfo') {
-      console.log()
       kuaiShouH5GetDataReal().then(res => {
         // 需要验证
         if (res.result === 2001) {

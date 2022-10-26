@@ -182,6 +182,16 @@ function mSecondSTrans (mss) {
   return hours > 0 ? `${addZero(hours)}:${addZero(minutes)}:${addZero(seconds)}` : `00:${addZero(minutes)}:${addZero(seconds)}`
 }
 
+// 随机出指定范围内的整数
+function getRandomInt (min, max) {
+  if (min > max) {
+    [min, max] = [max, min]
+  }
+  min = Math.floor(min)
+  max = Math.ceil(max)
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
 const Util = {
   addZero,
   newTimeStamp,
@@ -192,7 +202,8 @@ const Util = {
   judgeWebType,
   getVideoAttr,
   getQuery,
-  mSecondSTrans
+  mSecondSTrans,
+  getRandomInt
 }
 
 module.exports = Util
