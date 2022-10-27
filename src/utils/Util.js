@@ -192,6 +192,19 @@ function getRandomInt (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+// 使用对象构造url参数
+function objToUrl (obj) {
+  let url = ''
+  Object.keys(obj).forEach((li, index) => {
+    if (index === 0) {
+      url+= `${li}=${type['isObject'](obj[li]) ? JSON.stringify(obj[li]) : obj[li]}`
+    } else {
+      url+= `&${li}=${type['isObject'](obj[li]) ? JSON.stringify(obj[li]) : obj[li]}`
+    }
+  })
+  return url
+}
+
 const Util = {
   addZero,
   newTimeStamp,
@@ -203,7 +216,8 @@ const Util = {
   getVideoAttr,
   getQuery,
   mSecondSTrans,
-  getRandomInt
+  getRandomInt,
+  objToUrl
 }
 
 module.exports = Util

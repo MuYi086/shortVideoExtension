@@ -1,6 +1,7 @@
 const Util = require('./src/utils/Util')
 const axios = require('axios')
 const murmurHash3 = require('murmurhash3js')
+const kuaiShouEnctrypt = require('./src/utils/background/kuaiShouEncrypt')
 const fingerJson = require('./src/utils/json/fingerprint.json')
 const currentFingerprint = randomGetOneFingerprint(fingerJson)
 kuaiShouH5GetDataStart()
@@ -44,12 +45,21 @@ function kuaiShouH5GetDataStart () {
         const trajectory = createSlideTrack(assignData.distance, Util.newTimeStamp(), assignData.x)
         // 轨迹信息结构体
         const trackObj = constructTrackObj(assignData, trajectory)
-        console.log('-------------------------trackObj----------------------')
-        console.log(trackObj)
+        // 构造plaintext
+        const plaintext = Util.objToUrl(trackObj)
+        // 计算ciphertext
+        const ciphertext = kuaiShouEnctrypt.encrypt(plaintext)
+        // 获取captchaToken
+        getCaptchaToken(ciphertext, pathname).then(res => {
+          console.log('-------------------------captchaToken----------------------')
+          console.log(res)
+        }).catch(err => {
+          console.log(err ? '错误2' : '错误2')
+        })
       })
     }
   }).catch(err => {
-    console.log(err)
+    console.log(err ? '错误1' : '错误1')
   })
 }
 
@@ -97,7 +107,6 @@ function kuaiShouVerifyCaptcha (url, captchaSession, pathname) {
       // withCredentials: true
     }).then(res => {
       console.log('-------------------------2:获取验证码----------------------')
-      console.log(res)
       if (res.data) {
         resolve(res.data)
       }
@@ -131,7 +140,7 @@ function getCaptchaAttr (data) {
   y = Math.floor(disY * scaleRatio)
   // 然后再对x进行准确的计算 因为滑块开始 前面有部分边边 需要去除掉算起始位置到结束位置的距离
   const distance = Math.floor(((x - disX * scaleRatio)) / (realSize - 40) * 1000)
-  const result = { x, y, scaleRatio, distance }
+  const result = { x, y, scaleRatio, distance, originSize, realSize }
   Object.assign(result, data)
   return result
 }
@@ -216,9 +225,32 @@ function getMurmurHash3 (str) {
   return murmurHash3.x64.hash128(str)
 }
 
-// 构造plaintext
-// function constructPlaintext () {
-//   const concat_order = ['captchaSn', 'bgDisWidth', 'bgDisHeight', 'cutDisWidth', 'cutDisHeight',
-//   'relativeX', 'relativeY', 'trajectory', 'gpuInfo', 'captchaExtraParam']
-
-// }
+// 获取captchaToken
+function getCaptchaToken (ciphertext, pathname) {
+  return new Promise((resolve, reject) => {
+    const captchaApiUrl = 'https://captcha.zt.kuaishou.com/rest/zt/captcha/sliding/kSecretApiVerify'
+    const paraJson = {
+      verifyParam: ciphertext
+    }
+    axios({
+      url: captchaApiUrl,
+      method: 'post',
+      headers: {
+        // 'Connection': 'keep-alive',
+        // 'Origin': 'https://captcha.zt.kuaishou.com',
+        'Content-Type': 'application/json',
+        'Referer': pathname
+      },
+      timeout: 15000,
+      data: JSON.stringify(paraJson)
+    }).then(res => {
+      console.log('-------------------------3:获取captchaToken----------------------')
+      console.log(res)
+      if (res.data) {
+        resolve(res.data)
+      }
+    }).catch(err => {
+      reject(err)
+    })
+  })
+}

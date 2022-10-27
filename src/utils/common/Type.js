@@ -39,4 +39,4 @@
 
 const type = new Type()
 // 使用 type["isNull"](null)等
-module.export = type
+module.exports = type
