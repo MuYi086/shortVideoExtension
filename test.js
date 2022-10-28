@@ -1,7 +1,7 @@
 const Util = require('./src/utils/Util')
 const axios = require('axios')
 const murmurHash3 = require('murmurhash3js')
-const kuaiShouEnctrypt = require('./src/utils/background/kuaiShouEncrypt')
+const kuaiShouEnctrypt = require('./src/platform/common/kuaiShouEncrypt')
 const fingerJson = require('./src/utils/json/fingerprint.json')
 const currentFingerprint = randomGetOneFingerprint(fingerJson)
 kuaiShouH5GetDataStart()

@@ -1,2 +1,4 @@
-const renderDom = require('@/utils/render')
-console.log(renderDom())
+const pluginRegister = require('@/platform/index')
+const App = pluginRegister()
+console.log(App)
+App.renderPlugin()
