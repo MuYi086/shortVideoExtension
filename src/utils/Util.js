@@ -167,9 +167,9 @@ function getQuery (url) {
   // result为存储参数键值的集合
   const result = {}
   for (let i = 0; i < arr.length; i++) {
-      // item的两个元素分别为参数名和参数值
-      const item = arr[i].split('=')
-      result[item[0]] = item[1]
+    // item的两个元素分别为参数名和参数值
+    const item = arr[i].split('=')
+    result[item[0]] = item[1]
   }
   return result
 }
@@ -205,6 +205,30 @@ function objToUrl (obj) {
   return url
 }
 
+// 浅拷贝
+function shallowCopy (obj) {
+  if (obj === null) {
+    return null
+  } else {
+    return Object.create(
+      Object.getPrototypeOf(obj),
+      Object.getOwnPropertyDescriptors(obj)
+    )
+  }
+}
+
+// 深拷贝
+function deepCopy (obj, clone = Array.isArray(obj) ? [] : {}) {
+  if (obj != null && typeof obj === 'object') {
+    for (const [key, value] of Object.entries(obj)) {
+      clone[key] = deepCopy(value)
+    }
+  } else {
+    clone = obj
+  }
+  return clone
+}
+
 const Util = {
   addZero,
   newTimeStamp,
@@ -217,7 +241,9 @@ const Util = {
   getQuery,
   mSecondSTrans,
   getRandomInt,
-  objToUrl
+  objToUrl,
+  shallowCopy,
+  deepCopy
 }
 
 module.exports = Util
