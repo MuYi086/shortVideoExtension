@@ -22,9 +22,9 @@ const pageWd = {
         const { search } = location
         const queryObj = Util.getQuery(search)
         const { userName, kwaiId, userEid, caption, duration, likeCount, viewCount } = res.photo
-        const userLink = `https://www.kuaishou.com/profile/${userEid}`
+        const userLink = decodeURI(`https://www.kuaishou.com/profile/${userEid}`)
         const searchKey = decodeURI(queryObj.searchKey)
-        const videoUrl = `https://www.kuaishou.com/short-video/${photoId}${search}`
+        const videoUrl = decodeURI(`https://www.kuaishou.com/short-video/${photoId}${search}`)
         const durationStr = Util.mSecondSTrans(duration)
         const groupData = { userName, kwaiId, userLink, caption, searchKey, videoUrl, durationStr, likeCount, viewCount }
         resolve(groupData)

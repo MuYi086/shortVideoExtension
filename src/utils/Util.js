@@ -1,6 +1,7 @@
 const Config = require('./Config')
 const type = require('./common/Type')
 const ChromeStorage = require('./ChromeStorage')
+// const ChromeMsg = require('./ChromeMsg')
 
 // 小于10加0处理
 function addZero (e) {
@@ -169,6 +170,9 @@ function getPhotoIdByKuaiShouUrl (url) {
 
 // login
 function extenLogin () {
+  // ChromeMsg.sendMsg({name: 'storage_setUserInfo', }, function () {
+  //   console.log('已经登录')
+  // })
   const temp =  { name: 'ougege', pwd: 'test123' }
   ChromeStorage.set('userInfo', temp).then(() => {
     console.log('已经登录')
