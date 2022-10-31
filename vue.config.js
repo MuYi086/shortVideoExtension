@@ -30,6 +30,11 @@ const isDevMode = process.env.NODE_ENV === 'development'
 module.exports = {
   pages,
   filenameHashing: false,
+  pluginOptions: {
+    windicss: {
+      preflight: false,
+    }
+  },
   chainWebpack: (config) => {
     config.plugin('copy').use(require('copy-webpack-plugin'), [
       {

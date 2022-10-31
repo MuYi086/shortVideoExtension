@@ -16,14 +16,10 @@ export default {
   beforeCreate () {},
   created () {},
   beforeMount () {},
-  mounted () {
-    this.init()
-  },
+  mounted () {},
   beforeDestroy () {},
   destroyed () {},
-  methods: {
-    init () {}
-  }
+  methods: {}
 }
 </script>
 
