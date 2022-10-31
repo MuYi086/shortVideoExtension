@@ -13,7 +13,7 @@ function renderPlugin (isRegister = true) {
   '   <div class="line"><i>热度:</i><span class="line-7"></span></div>' +
   '   <div class="line"><i>浏览量:</i><span class="line-8"></span></div>' +
   '  </div>' +
-  '<div id="btn-wrapper"><button class="btn-1">登录</button><button class="btn-2">获取</button><button class="btn-3">退出</button></div>' +
+  '<div id="btn-wrapper"><button class="btn-2">获取</button><button class="btn-3">退出</button></div>' +
   '</div>'
   $('body').append(monitorWrap)
 }

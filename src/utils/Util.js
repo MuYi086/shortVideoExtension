@@ -174,14 +174,14 @@ function extenLogin () {
   //   console.log('已经登录')
   // })
   const temp =  { name: 'ougege', pwd: 'test123' }
-  ChromeStorage.set('userInfo', temp).then(() => {
+  return ChromeStorage.set('userInfo', temp).then(() => {
     console.log('已经登录')
   })
 }
 
 // logout
 function extenLogout () {
-  ChromeStorage.remove('userInfo').then(() => {
+  return ChromeStorage.remove('userInfo').then(() => {
     console.log('已经退出登录')
   })
 }
