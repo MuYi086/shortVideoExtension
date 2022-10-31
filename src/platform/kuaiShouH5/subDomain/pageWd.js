@@ -1,12 +1,11 @@
 // const $ = require('jquery')
+const dataPreview = require('@/platform/render/dataPreview')
 const Util = require('@/utils/Util')
 const Api = require('../api')
-const renderData = require('../../common/renderData')
 const pageWd = {
   init: function () {
-    // const that = this
     this.getData().then(data => {
-      renderData(data)
+      dataPreview(data)
     })
   },
   // 发起请求

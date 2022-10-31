@@ -1,10 +1,12 @@
-const renderPlugin = require('../common/renderPlugin')
-const renderData = require('../common/renderData')
+const render = require('../render/index')
+const dataPreview = require('../render/dataPreview')
 const pageFn = require('./pageFn')
+const btnFnInit = require('../btnFn/index')
 const Api = require('./api')
 const App = {
-  renderPlugin,
-  renderData,
+  render,
+  btnFnInit,
+  dataPreview,
   Api,
   pageFn
 }

@@ -1,5 +1,5 @@
 const $ = require('jquery')
-function renderData (data) {
+function dataPreview (data) {
   const { userName, kwaiId, userLink, caption, searchKey, videoUrl, durationStr, likeCount, viewCount } = data
   $('.line .line-0').text(searchKey)
   $('.line .line-1').text(videoUrl)
@@ -12,4 +12,4 @@ function renderData (data) {
   $('.line .line-8').text(viewCount)
 }
 
-module.exports = renderData
+module.exports = dataPreview

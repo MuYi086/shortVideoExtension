@@ -1,5 +1,6 @@
 const Config = require('./Config')
 const type = require('./common/Type')
+const ChromeStorage = require('./ChromeStorage')
 
 // 小于10加0处理
 function addZero (e) {
@@ -87,78 +88,6 @@ function judgeWebType () {
   return siteName
 }
 
-// 获取视频对象的属性
-function getVideoAttr (videoObj) {
-  const {
-    audioTracks, // 返回表示可用音频轨道的 AudioTrackList 对象。
-    autoplay, // 设置或返回是否在就绪（加载完成）后随即播放视频。
-    buffered, // 返回视频已缓存部分的TimeRanges对象
-    controller, // 返回表示视频当前媒体控制器的MediaController对象
-    controls, // 设置或返回视频是否应该显示控件（比如播放/暂停等）。
-    crossOrigin, // 设置或返回视频的CORS设置
-    currentSrc, // 返回当前视频的URL
-    currentTime, // 设置或返回视频中的当前播放位置
-    defaultMuted, // 设置后返回视频默认是否静音
-    defaultPlaybackRate, // 设置或返回视频的默认播放速度。
-    duration, // 返回视频的长度
-    ended, // 返回视频的播放是否已经结束
-    error, // 返回表示视频错误状态的MeidaError对象
-    height, // 设置或返回视频的 height 属性的值。
-    loop, // 设置或返回视频是否应在结束时再次播放。
-    mediaGroup, // 设置或返回视频所属媒介组合的名称。
-    muted, // 设置或返回是否关闭声音。
-    networkState, // 返回视频的当前网络状态。
-    paused, // 设置或返回视频是否暂停。
-    playbackRate, // 设置或返回视频播放的速度。
-    played, // 返回表示视频已播放部分的 TimeRanges 对象。
-    poster, // 设置或返回视频的 poster 属性的值。
-    preload, // 设置或返回视频的 preload 属性的值。
-    readyState, // 返回视频当前的就绪状态。
-    seekable, // 返回表示视频可寻址部分的 TimeRanges 对象。
-    seeking, // 返回用户当前是否正在视频中进行查找。
-    src, // 设置或返回视频的 src 属性的值。
-    startDate, // 返回表示当前时间偏移的 Date 对象。
-    textTracks, // 返回表示可用文本轨道的 TextTrackList 对象。
-    videoTracks, // 返回表示可用视频轨道的 VideoTrackList 对象。
-    volume, // 设置或返回视频的音量。
-    width // 设置或返回视频的 width 属性的值。
-  } = videoObj
-  return {
-    audioTracks,
-    autoplay,
-    buffered,
-    controller,
-    controls,
-    crossOrigin,
-    currentSrc,
-    currentTime,
-    defaultMuted,
-    defaultPlaybackRate,
-    duration,
-    ended,
-    error,
-    height,
-    loop,
-    mediaGroup,
-    muted,
-    networkState,
-    paused,
-    playbackRate,
-    played,
-    poster,
-    preload,
-    readyState,
-    seekable,
-    seeking,
-    src,
-    startDate,
-    textTracks,
-    videoTracks,
-    volume,
-    width
-  }
-}
-
 function getQuery (url) {
   // str为？之后的参数部分字符串
   const str = url.substr(url.indexOf('?') + 1)
@@ -236,7 +165,34 @@ function getPhotoIdByKuaiShouUrl (url) {
   const len = pathnameArr.length
   const photoId = pathnameArr[len - 1]
   return { pathname, photoId }
-} 
+}
+
+// login
+function extenLogin () {
+  const temp =  { name: 'ougege', pwd: 'test123' }
+  ChromeStorage.set('userInfo', temp).then(() => {
+    console.log('已经登录')
+  })
+}
+
+// logout
+function extenLogout () {
+  ChromeStorage.remove('userInfo').then(() => {
+    console.log('已经退出登录')
+  })
+}
+
+// getUserInfo
+function getUserInfo () {
+  return ChromeStorage.get('userInfo')
+}
+
+// checkLogin
+function checkLogin () {
+  return ChromeStorage.get('userInfo').then(res => {
+    return (res && res.name) ? res.name : null
+  })
+}
 
 const Util = {
   addZero,
@@ -246,14 +202,17 @@ const Util = {
   transWeekDay,
   judgeExcelNull,
   judgeWebType,
-  getVideoAttr,
   getQuery,
   mSecondSTrans,
   getRandomInt,
   objToUrl,
   shallowCopy,
   deepCopy,
-  getPhotoIdByKuaiShouUrl
+  getPhotoIdByKuaiShouUrl,
+  extenLogin,
+  extenLogout,
+  getUserInfo,
+  checkLogin
 }
 
 module.exports = Util
