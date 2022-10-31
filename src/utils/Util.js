@@ -229,6 +229,15 @@ function deepCopy (obj, clone = Array.isArray(obj) ? [] : {}) {
   return clone
 }
 
+// 获取快手url中的photoId
+function getPhotoIdByKuaiShouUrl (url) {
+  const pathname = url.split('?')[0]
+  const pathnameArr = pathname.split('/')
+  const len = pathnameArr.length
+  const photoId = pathnameArr[len - 1]
+  return { pathname, photoId }
+} 
+
 const Util = {
   addZero,
   newTimeStamp,
@@ -243,7 +252,8 @@ const Util = {
   getRandomInt,
   objToUrl,
   shallowCopy,
-  deepCopy
+  deepCopy,
+  getPhotoIdByKuaiShouUrl
 }
 
 module.exports = Util

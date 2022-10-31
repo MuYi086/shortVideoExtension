@@ -9,7 +9,6 @@ const pageSearch = {
   getData () {
     const that = this
     $('.search-button').click(function () {
-      console.log('我点击了')
       const queryObj = Util.getQuery(location.search)
       that.keyword = decodeURI(queryObj.searchKey)
       const params = {

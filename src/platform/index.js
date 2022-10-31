@@ -1,5 +1,6 @@
 const Util = require('@/utils/Util')
 const kuaiShouApp = require('./kuaiShou')
+const kuaiShouH5App = require('./kuaiShouH5')
 function pluginRegister () {
   const siteName = Util.judgeWebType()
   switch (siteName) {
@@ -8,6 +9,7 @@ function pluginRegister () {
     case 'kuaishou':
       return kuaiShouApp
     case 'kuaishouH5':
+      return kuaiShouH5App
     case 'xigua':
       break
     case 'bilibili':

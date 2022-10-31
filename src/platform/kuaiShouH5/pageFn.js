@@ -1,10 +1,10 @@
-const pageSearch = require('./subDomain/pageSearch')
+const pageWd = require('./subDomain/pageWd')
 function pageFn () {
   const { pathname } = location
   const subDomain = pathname.split('/')[1]
   switch (subDomain) {
-    case 'search':
-      pageSearch.init()
+    case 'fw':
+      pageWd.init()
       break
     default:
       console.log('其他')
