@@ -5,3 +5,4 @@
 https://www.tailwindcss.cn/docs/installation
 1. [tailwindcss文档](https://www.tailwindcss.cn/docs/installation 'tailwindcss文档')
 1. [bootstrap-select](https://developer.snapappointments.com/bootstrap-select/examples/#live-search 'bootstrap-select')
+1. [bootstrap-select插件实现下拉框菜单多选，搜索，全选](https://blog.csdn.net/Resst/article/details/121647732 'bootstrap-select插件实现下拉框菜单多选，搜索，全选')

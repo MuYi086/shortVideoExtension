@@ -52,6 +52,8 @@
       ],
       "js": [
         "util/jquery.min.js",
+        "util/bootstrap.min.js",
+        "util/bootstrap-select.min.js",
         "js/content.js"
       ],
       "css": [

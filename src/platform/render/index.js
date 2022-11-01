@@ -5,6 +5,7 @@ const render = function () {
   const btnFnInit = require('@/platform/btnFn')
   const monitorWrap = `<div id="monitor">${renderLogin}${renderPreview}</div>`
   $('body').append(monitorWrap)
+  $('.selectpicker').selectpicker()
   Util.checkLogin().then(res => {
     if (res) {
       $('#loginWrap').hide()

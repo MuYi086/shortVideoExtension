@@ -1,8 +1,10 @@
 const renderPreview = '<div id="previewWrap">' +
-'	  <div class="input-group input-group-sm">' +
-'		  <span class="input-group-addon">IP名称</span>' +
-'		  <input type="text" class="form-control">' +
-'	  </div>' +
+// '	  <div class="input-group input-group-sm">' +
+// '		  <span class="input-group-addon">IP名称</span>' +
+// '		  <input type="text" class="form-control">' +
+// '	  </div>' +
+'   <select class="selectpicker" data-live-search="true">' +
+'   </select>' +
 '	  <br>' +
 '   <div class="preview">' +
 '     <div class="line"><i>搜索词：</i><span class="line-0"></span></div>' +
@@ -17,7 +19,8 @@ const renderPreview = '<div id="previewWrap">' +
 '   </div>' +
 '	  <br>' +
 '	  <div id="btn-wrapper" class="btn-group">' +
-'		  <button type="button" class="btn btn-default btn-logout btn-xs">退出</button>' +
+'		  <button type="button" class="btn btn-primary btn-submit btn-xs">提交</button>' +
+'		  <button type="button" class="btn btn-danger btn-logout btn-xs">退出</button>' +
 '	  </div>' +
 // '   <div id="btn-wrapper"><button class="btn-2">获取</button><button class="btn-3">退出</button></div>' +
 '</div>'
