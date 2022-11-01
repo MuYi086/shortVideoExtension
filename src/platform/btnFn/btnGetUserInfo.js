@@ -1,10 +1,10 @@
 const $ = require('jquery')
-const Util = require('@/utils/Util')
+const ChromeStorage = require('@/utils/ChromeStorage')
 function btnGetUserInfo () {
   $('#btn-wrapper .btn-2').click(function () {
     console.log('点击了获取')
-    Util.getUserInfo().then(res => {
-      console.log('这是登录信息', res)
+    ChromeStorage.get('userInfo').then(res => {
+      console.log(res)
     })
   })
 }

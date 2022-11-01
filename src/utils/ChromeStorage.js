@@ -30,7 +30,7 @@ const ChromeStorage = {
         if (error) {
           reject(error.message)
         }
-        resolve(`已移除${key}`)
+        resolve()
       })
     })
   },

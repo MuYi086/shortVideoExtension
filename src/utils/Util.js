@@ -168,34 +168,9 @@ function getPhotoIdByKuaiShouUrl (url) {
   return { pathname, photoId }
 }
 
-// login
-function extenLogin () {
-  // ChromeMsg.sendMsg({name: 'storage_setUserInfo', }, function () {
-  //   console.log('已经登录')
-  // })
-  const temp =  { name: 'ougege', pwd: 'test123' }
-  return ChromeStorage.set('userInfo', temp).then(() => {
-    console.log('已经登录')
-  })
-}
-
-// logout
-function extenLogout () {
-  return ChromeStorage.remove('userInfo').then(() => {
-    console.log('已经退出登录')
-  })
-}
-
-// getUserInfo
-function getUserInfo () {
-  return ChromeStorage.get('userInfo')
-}
-
 // checkLogin
 function checkLogin () {
-  return ChromeStorage.get('userInfo').then(res => {
-    return (res && res.name) ? res.name : null
-  })
+  return ChromeStorage.get('userInfo')
 }
 
 const Util = {
@@ -213,9 +188,6 @@ const Util = {
   shallowCopy,
   deepCopy,
   getPhotoIdByKuaiShouUrl,
-  extenLogin,
-  extenLogout,
-  getUserInfo,
   checkLogin
 }
 

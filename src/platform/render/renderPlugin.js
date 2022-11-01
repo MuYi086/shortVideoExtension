@@ -1,6 +1,5 @@
 const $ = require('jquery')
-function renderPlugin (isRegister = true) {
-  if (!isRegister) return false
+function renderPlugin (cb = function () {}) {
   const monitorWrap = '<div id="monitor">' +
   ' <div class="preview">' +
   '   <div class="line"><i>搜索词：</i><span class="line-0"></span></div>' +
@@ -16,5 +15,6 @@ function renderPlugin (isRegister = true) {
   '<div id="btn-wrapper"><button class="btn-2">获取</button><button class="btn-3">退出</button></div>' +
   '</div>'
   $('body').append(monitorWrap)
+  cb()
 }
 module.exports = renderPlugin
