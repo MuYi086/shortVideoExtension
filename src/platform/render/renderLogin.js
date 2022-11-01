@@ -1,5 +1,5 @@
 const renderLogin = '<div id="loginWrap">' +
-' <div class="preview">' +
+' <div class="inner">' +
 '   <form class="form-wrap" role="form">' +
 '	    <div class="input-group">' +
 '		    <span class="input-group-addon">用户名</span>' +
