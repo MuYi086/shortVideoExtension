@@ -54,6 +54,7 @@
         "js/content.js"
       ],
       "css": [
+        "css/bootstrap.min.css",
         "css/contentScript.css"
       ],
       "run_at": "document_end"

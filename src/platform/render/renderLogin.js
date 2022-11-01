@@ -1,8 +1,20 @@
 const renderLogin = '<div id="loginWrap">' +
 ' <div class="preview">' +
-'   <div class="line"><i>用户名：</i><input value="" /></div>' +
-'   <div class="line"><i>密码：</i><input value="" /></div>' +
+'   <form class="form-wrap" role="form">' +
+'	    <div class="input-group">' +
+'		    <span class="input-group-addon">用户名</span>' +
+'		    <input type="text" class="form-control">' +
+'	    </div>' +
+'	    <br>' +
+'	    <div class="input-group">' +
+'		    <span class="input-group-addon">密码</span>' +
+'		    <input type="text" class="form-control">' +
+'	    </div>' +
+'	    <br>' +
+'	    <div id="btn-wrapper" class="btn-group">' +
+'		    <button type="button" class="btn btn-default btn-login">登录</button>' +
+'	    </div>' +
+'   </form>' +
 '  </div>' +
-'  <div id="btn-wrapper"><button class="btn-1">登录</button><button class="btn-2">获取</button></div>' +
 '</div>'
 module.exports = renderLogin

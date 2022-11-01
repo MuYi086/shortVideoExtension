@@ -11,6 +11,13 @@ html {
   right: 10px;
   overflow: hidden;
 }
+#monitor .login-wrap .form-wrap {
+  padding: 10px;
+}
+#btn-wrapper,
+#btn-wrapper .btn {
+  width: 100%;
+}
 #monitor .preview .line i {
   display: inline-block;
   font-style: normal;
