@@ -51,10 +51,12 @@
         "https://v.qq.com/*"
       ],
       "js": [
+        "util/jquery.min.js",
         "js/content.js"
       ],
       "css": [
         "css/bootstrap.min.css",
+        "css/bootstrap-select.min.css",
         "css/contentScript.css"
       ],
       "run_at": "document_end"

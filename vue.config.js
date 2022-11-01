@@ -44,8 +44,16 @@ module.exports = {
             to: `${path.resolve('dist')}/manifest.json`
           },
           {
-            from: path.resolve(`src/assets/`),
-            to: `${path.resolve('dist')}/`
+            from: path.resolve(`src/assets/css`),
+            to: `${path.resolve('dist')}/css/`
+          },
+          {
+            from: path.resolve(`src/assets/img`),
+            to: `${path.resolve('dist')}/img/`
+          },
+          {
+            from: path.resolve(`src/assets/js`),
+            to: `${path.resolve('dist')}/util/`
           }
         ]
       }

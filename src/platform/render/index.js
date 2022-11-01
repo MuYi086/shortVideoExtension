@@ -1,5 +1,4 @@
 const Util = require('@/utils/Util')
-const $ = require('jquery')
 const renderLogin = require('./renderLogin')
 const renderPreview = require('./renderPreview')
 const render = function () {

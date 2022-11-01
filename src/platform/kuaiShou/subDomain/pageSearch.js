@@ -1,4 +1,3 @@
-const $ = require('jquery')
 const Util = require('@/utils/Util')
 const Api = require('../api')
 const pageSearch = {

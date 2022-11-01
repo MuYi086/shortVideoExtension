@@ -1,4 +1,3 @@
-// const $ = require('jquery')
 const dataPreview = require('@/platform/render/dataPreview')
 const Util = require('@/utils/Util')
 const Api = require('../api')

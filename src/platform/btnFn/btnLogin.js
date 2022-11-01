@@ -1,4 +1,3 @@
-const $ = require('jquery')
 const ChromeStorage = require('@/utils/ChromeStorage')
 function btnLogin () {
   $('#btn-wrapper .btn-login').click(function () {

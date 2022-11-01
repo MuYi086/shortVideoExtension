@@ -1,4 +1,3 @@
-const $ = require('jquery')
 function dataPreview (data) {
   const { userName, kwaiId, userLink, caption, searchKey, videoUrl, durationStr, likeCount, viewCount } = data
   $('.line .line-0').text(searchKey)
