@@ -1,16 +1,18 @@
 const Util = require('@/utils/Util')
-const renderClear = require('./renderClear')
+const $ = require('jquery')
 const renderLogin = require('./renderLogin')
-const renderPlugin = require('./renderPlugin')
-const render = function (cb = function () { console.log('可以加载回调') }) {
-  renderClear()
+const renderPreview = require('./renderPreview')
+const render = function () {
+  const btnFnInit = require('@/platform/btnFn')
+  const monitorWrap = `<div id="monitor">${renderLogin}${renderPreview}</div>`
+  $('body').append(monitorWrap)
   Util.checkLogin().then(res => {
-    console.log(res, '--------check--------')
     if (res) {
-      renderPlugin(cb)
+      $('#loginWrap').hide()
     } else {
-      renderLogin(cb)
+      $('#previewWrap').hide()
     }
+    btnFnInit()
   })
 }
 module.exports = render

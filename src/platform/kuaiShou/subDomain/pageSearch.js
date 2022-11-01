@@ -21,11 +21,9 @@ const pageSearch = {
         }
       }
       Api.kuaiShouGraphql(params).then(res => {
-        console.log('-------------------------1:数据----------------------')
         const feedsList = that.dealFeeds(res.data.visionSearchPhoto.feeds)
         that.addModifyBtn(feedsList)
       }).catch(err => {
-        console.log('-------------------------1:错误----------------------')
         console.log(err)
       })
     })
@@ -45,7 +43,6 @@ const pageSearch = {
   },
   // 给视频栏增加自定义按钮
   addModifyBtn (feeds) {
-    console.log(feeds)
     $.each($('.video-container .video-card '), function (index , item) {
       const likeStr = $(item).find('.video-info-content .info-text').text()
       const dealLikeStr = likeStr.substr(0, likeStr.length - 2)
