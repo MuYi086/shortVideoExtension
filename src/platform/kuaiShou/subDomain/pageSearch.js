@@ -6,13 +6,18 @@ const pageSearch = {
     this.count = 0
     this.getData()
     this.scrollEvent()
+    this.monitorSearchInput()
   },
-  // 发起请求
   getData () {
     const that = this
     $('.search-button').click(function () {
-      that.searchData()
+      // 防止给页面过滤数据时页面还未渲染完成，加个延时
+      setTimeout(that.searchData.bind(that), 1000)
     })
+  },
+  reset () {
+    this.searchSessionId = ''
+    this.count = 0
   },
   searchData (isAddSearchSessionId = false) {
     const that = this
@@ -25,8 +30,7 @@ const pageSearch = {
       variables: {
         keyword: that.keyword,
         page: 'search',
-        pcursor: '',
-        searchSessionId: this.searchSessionId
+        pcursor: ''
       }
     }
     // 二次查询是否追加searchSessionId
@@ -89,6 +93,12 @@ const pageSearch = {
         that.searchData(true)
       }
     }
+  },
+  monitorSearchInput () {
+    const that = this
+    $('.search-input').focus(function () {
+      that.reset()
+    })
   }
 }
 module.exports = pageSearch
