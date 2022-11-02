@@ -1,2 +1,4 @@
-const renderAlert = '<div id="alertWrap"></div>'
+const renderAlert = function () {
+  return '<div id="alertWrap"></div>'
+}
 module.exports = renderAlert

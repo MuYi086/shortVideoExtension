@@ -2,11 +2,14 @@ const Util = require('@/utils/Util')
 const renderLogin = require('./renderLogin')
 const renderPreview = require('./renderPreview')
 const renderAlert = require('./renderAlert')
-const render = function () {
+const render = async function () {
   const btnFnInit = require('@/platform/btnFn')
-  const monitorWrap = `<div id="monitor">${renderLogin}${renderPreview}</div>`
+  const renderPreviewHtml = await renderPreview()
+  const renderLoginHtml = renderLogin()
+  const renderAlertHtml = renderAlert()
+  const monitorWrap = `<div id="monitor">${renderPreviewHtml}${renderLoginHtml}</div>`
   $('body').append(monitorWrap)
-  $('body').append(renderAlert)
+  $('body').append(renderAlertHtml)
   $('.selectpicker').selectpicker()
   Util.checkLogin().then(res => {
     if (res) {
