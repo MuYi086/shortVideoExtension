@@ -1,9 +1,9 @@
 const btnLogin = require('./btnLogin')
 const btnLogout = require('./btnLogout')
-const btnGetUserInfo = require('./btnGetUserInfo')
+const btnSubmit = require('./btnSubmit')
 const btnFnInit = function () {
   btnLogin()
   btnLogout()
-  btnGetUserInfo()
+  btnSubmit()
 }
 module.exports = btnFnInit
