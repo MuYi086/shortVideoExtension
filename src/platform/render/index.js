@@ -8,9 +8,9 @@ const render = function () {
   $('.selectpicker').selectpicker()
   Util.checkLogin().then(res => {
     if (res) {
-      $('#loginWrap').hide()
+      $('#previewWrap').show()
     } else {
-      $('#previewWrap').hide()
+      $('#loginWrap').show()
     }
     btnFnInit()
   })

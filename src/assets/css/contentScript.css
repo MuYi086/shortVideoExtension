@@ -11,6 +11,10 @@ html {
   right: 10px;
   overflow: hidden;
 }
+#loginWrap,
+#previewWrap {
+  display: none;
+}
 #monitor .login-wrap .form-wrap {
   padding: 10px;
 }
@@ -40,4 +44,11 @@ html {
 .preview .line span {
   display: inline-block;
   word-break: break-word;
+}
+/* 搜索页面注入按钮 */
+a.to-h5 {
+  align-items: flex-end;
+  padding: 2px;
+  color: #fff !important;
+  background: #5bc0de;
 }

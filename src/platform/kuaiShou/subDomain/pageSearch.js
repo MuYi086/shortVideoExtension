@@ -53,7 +53,7 @@ const pageSearch = {
           break
         }
       }
-      const insertDom = `<a href="${h5Href}" target="_blank">跳转</a>`
+      const insertDom = `<a href="${h5Href}" class="to-h5" target="_blank">跳转</a>`
       $(item).find('.video-info-content').append(insertDom)
     })
   }
