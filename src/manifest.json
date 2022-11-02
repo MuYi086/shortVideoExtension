@@ -54,6 +54,7 @@
         "util/jquery.min.js",
         "util/bootstrap.min.js",
         "util/bootstrap-select.min.js",
+        "util/bootstrap-select.i18n.default-zh_Cn.min.js",
         "js/content.js"
       ],
       "css": [

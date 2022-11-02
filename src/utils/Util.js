@@ -1,7 +1,6 @@
 const Config = require('./Config')
 const type = require('./common/Type')
 const ChromeStorage = require('./ChromeStorage')
-// const ChromeMsg = require('./ChromeMsg')
 
 // 小于10加0处理
 function addZero (e) {
