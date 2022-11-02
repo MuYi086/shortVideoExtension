@@ -1,4 +1,5 @@
 let API_URL = 'http://192.168.1.58:8094/'
+const windowWH = { windowW: null, windowH: null } // 全局的窗口高度和宽度
 // 开发环境
 if (process.env.NODE_ENV === 'development') {
   API_URL = 'https://626439j4z2.zicp.fun/'
@@ -13,6 +14,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 const Config = {
   API_URL,
+  windowWH,
   wholeSiteList: [ // 网站列表
     { url: 'https://*.douyin.com/*', thumb: 'douyin', name: 'douyin' },
     { url: 'https://*.kuaishou.com/*', thumb: 'kuaishou', name: 'kuaishou' },

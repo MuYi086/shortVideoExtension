@@ -172,6 +172,24 @@ function checkLogin () {
   return ChromeStorage.get('token')
 }
 
+// 去除首尾空格
+function trimSpace (str) {
+  const str1 = str.replace(/^\s*/ig, '')
+  const str2 = str1.replace(/\s*$/ig, '')
+  return str2
+}
+
+// 获取窗口的宽度和高度: 包含滚动条
+function getWindowHeightWidth () {
+  if (!Config.windowWH.windowW) {
+    Config.windowWH = {
+      windowW: window.innerWidth || document.documentElement.clientWidth,
+      windowH: window.innerHeight || document.documentElement.clientHeight
+    }
+  }
+  return Config.windowWH
+}
+
 const Util = {
   addZero,
   newTimeStamp,
@@ -187,7 +205,9 @@ const Util = {
   shallowCopy,
   deepCopy,
   getPhotoIdByKuaiShouUrl,
-  checkLogin
+  checkLogin,
+  trimSpace,
+  getWindowHeightWidth
 }
 
 module.exports = Util
