@@ -1,9 +1,14 @@
 const ChromeStorage = require('@/utils/ChromeStorage')
 const GlobalApi = require('@/api')
+const btnAlert = require('@/platform/btnFn/btnAlert')
 function btnLogin () {
   $('#btn-wrapper .btn-login').click(function () {
-    const { username, password } = formCheck()
-    console.log(username, password)
+    const username = $('#login-username').val()
+    const password = $('#login-password').val()
+    if (!username || !password) {
+      btnAlert('danger', '用户名或密码不能为空')
+      return false
+    }
     const params = {
       username: username,
       password: password
@@ -13,16 +18,12 @@ function btnLogin () {
         ChromeStorage.set('token', res.data.token).then(() => {
           $('#loginWrap').hide()
           $('#previewWrap').show()
+          btnAlert('success', '登录成功')
         })
+      } else {
+        btnAlert('danger', res.msg)
       }
-    }).catch(err => {
-      console.log(err)
     })
   })
-}
-function formCheck () {
-  const username = $('#login-username').val()
-  const password = $('#login-password').val()
-  return { username, password }
 }
 module.exports = btnLogin

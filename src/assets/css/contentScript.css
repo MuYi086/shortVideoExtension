@@ -52,3 +52,11 @@ a.to-h5 {
   color: #fff !important;
   background: #5bc0de;
 }
+/* 提示样式 */
+#alertWrap {
+  position: fixed;
+  top: 80px;
+  left: 100px;
+  width: calc(100vw - 200px);
+  z-index: 10000;
+}
