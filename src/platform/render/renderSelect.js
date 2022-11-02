@@ -3,7 +3,7 @@ const btnAlert = require('@/platform/btnFn/btnAlert')
 const renderSelect = async function () {
   // const params = {}
   // const res = await GlobalApi.getIpList(params)
-  const res = { data: [1, 2, 3, 4] }
+  const res = { data: ['张三', '李四', '王五', '赵六'] }
   if (res.data) {
     return constructSelectList(res.data)
   } else {
