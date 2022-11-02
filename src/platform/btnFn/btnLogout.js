@@ -1,7 +1,7 @@
 const ChromeStorage = require('@/utils/ChromeStorage')
 function btnLogout () {
   $('#btn-wrapper .btn-logout').click(function () {
-    ChromeStorage.remove('userInfo').then(() => {
+    ChromeStorage.remove('token').then(() => {
       $('#previewWrap').hide()
       $('#loginWrap').show()
     })

@@ -1,7 +1,7 @@
 const ChromeStorage = require('@/utils/ChromeStorage')
 function btnGetUserInfo () {
   $('#btn-wrapper .btn-2').click(function () {
-    ChromeStorage.get('userInfo').then(res => {
+    ChromeStorage.get('token').then(res => {
       console.log(res)
     })
   })

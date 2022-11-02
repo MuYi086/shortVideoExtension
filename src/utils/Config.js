@@ -1,4 +1,18 @@
+let API_URL = 'http://192.168.1.58:8094/'
+// 开发环境
+if (process.env.NODE_ENV === 'development') {
+  API_URL = 'https://626439j4z2.zicp.fun/'
+}
+// 测试环境
+if (process.env.NODE_ENV === 'test') {
+  API_URL = 'http://192.168.1.58:8094/'
+}
+// 生产环境
+if (process.env.NODE_ENV === 'production') {
+  API_URL = 'http://192.168.1.58:8094/'
+}
 const Config = {
+  API_URL,
   wholeSiteList: [ // 网站列表
     { url: 'https://*.douyin.com/*', thumb: 'douyin', name: 'douyin' },
     { url: 'https://*.kuaishou.com/*', thumb: 'kuaishou', name: 'kuaishou' },

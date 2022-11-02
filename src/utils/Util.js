@@ -169,7 +169,7 @@ function getPhotoIdByKuaiShouUrl (url) {
 
 // checkLogin
 function checkLogin () {
-  return ChromeStorage.get('userInfo')
+  return ChromeStorage.get('token')
 }
 
 const Util = {
