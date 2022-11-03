@@ -1,13 +1,17 @@
 const GlobalApi = require('@/api')
 const btnAlert = require('@/platform/btnFn/btnAlert')
-const renderSelect = async function () {
-  const params = {}
-  const res = await GlobalApi.monitorProjectWorkPlug(params)
-  if (res.rows) {
-    return constructSelectList(res.rows)
-  } else {
-    btnAlert('danger', res.msg)
-  }
+const renderSelect = function () {
+  return new Promise((resolve, reject) => {
+    const params = {}
+    GlobalApi.monitorProjectWorkPlug(params).then(res => {
+      if (res.data.rows) {
+        resolve(constructSelectList(res.data.rows))
+      } else {
+        btnAlert('danger', res.data.msg)
+        reject(res.data.msg)
+      }
+    })
+  })
 }
 function constructSelectList (list) {
   const head = '<select class="selectpicker" data-live-search="true" multiple>'

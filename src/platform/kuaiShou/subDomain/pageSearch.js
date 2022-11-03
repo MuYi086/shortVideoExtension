@@ -39,8 +39,9 @@ const pageSearch = {
       params.variables.searchSessionId = this.searchSessionId
     }
     Api.kuaiShouGraphql(params).then(res => {
-      const feedsList = that.dealFeeds(res.data.visionSearchPhoto.feeds)
-      that.searchSessionId = res.data.visionSearchPhoto.searchSessionId
+      const { visionSearchPhoto } = res.data.data
+      const feedsList = that.dealFeeds(visionSearchPhoto.feeds)
+      that.searchSessionId = visionSearchPhoto.searchSessionId
       that.addModifyBtn(feedsList)
     }).catch(err => {
       console.log(err)

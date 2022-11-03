@@ -1,8 +1,5 @@
-const renderSelect = require('@/platform/render/renderSelect')
-async function renderPreview () {
-  const selectHtml = await renderSelect()
+const renderPreview = function () {
   return '<div id="previewWrap">' +
-    selectHtml +
     '	  <br>' +
     '   <div class="preview">' +
     '     <div class="line"><i>搜索词：</i><span class="line-0"></span></div>' +
