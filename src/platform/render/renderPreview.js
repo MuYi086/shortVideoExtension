@@ -2,8 +2,6 @@ const renderSelect = require('./renderSelect')
 const renderPreview = async function () {
   const renderSelectHtml = await renderSelect()
   const renderPreviewHtml = '<div id="previewWrap">' +
-    renderSelectHtml +
-    '	  <br>' +
     '   <div class="preview">' +
     '     <div class="line"><i>搜索词：</i><span class="line-0"></span></div>' +
     '     <div class="line"><i>侵权链接：</i><span class="line-1"></span></div>' +
@@ -16,6 +14,8 @@ const renderPreview = async function () {
     '     <div class="line"><i>热度:</i><span class="line-8"></span></div>' +
     '     <div class="line"><i>浏览量:</i><span class="line-9"></span></div>' +
     '   </div>' +
+    renderSelectHtml +
+    '	  <br>' +
     '	  <br>' +
     '	  <div id="btn-wrapper" class="btn-group">' +
     '		  <button type="button" class="btn btn-warning btn-submit-tort btn-xs">侵权</button>' +

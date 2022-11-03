@@ -1,7 +1,8 @@
 const ChromeStorage = require('@/utils/ChromeStorage')
 const GlobalApi = require('@/api')
 const btnAlert = require('@/platform/btnFn/btnAlert')
-const renderSelect = require('@/platform/render/renderSelect')
+const render = require('@/platform/render')
+// const renderSelect = require('@/platform/render/renderSelect')
 function btnLogin () {
   $('#btn-wrapper .btn-login').click(function () {
     const username = $('#login-username').val()
@@ -17,13 +18,14 @@ function btnLogin () {
     GlobalApi.login(params).then(res => {
       if (res.data.data) {
         ChromeStorage.set('token', res.data.data.token).then(() => {
-          $('#loginWrap').hide()
-          $('#previewWrap').show()
-          renderSelect()
+          // $('#loginWrap').hide()
+          // $('#previewWrap').show()
+          // renderSelect()
           btnAlert('success', '登录成功')
+          render()
         })
       } else {
-        btnAlert('danger', res.msg)
+        btnAlert('danger', res.data.msg)
       }
     })
   })

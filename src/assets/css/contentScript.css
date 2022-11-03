@@ -72,9 +72,13 @@ html {
   z-index: 10000;
 }
 /* 下拉框样式 */
+.dropdown-menu.open {
+  height: 200px !important;
+  overflow-y: scroll !important;
+}
 .dropdown-menu li a {
   width: 220px;
-  overflow: hidden;
+  /* overflow: hidden; */
   white-space: nowrap;
   text-overflow: ellipsis;
 }
