@@ -14,8 +14,8 @@ function btnLogin () {
       password: password
     }
     GlobalApi.login(params).then(res => {
-      if (res.data) {
-        ChromeStorage.set('token', res.data.token).then(() => {
+      if (res.data.data) {
+        ChromeStorage.set('token', res.data.data.token).then(() => {
           $('#loginWrap').hide()
           $('#previewWrap').show()
           btnAlert('success', '登录成功')

@@ -6,7 +6,7 @@ const Api = {
   kuaiShouGraphql: (params) => { 
     return new Promise((resolve, reject) => {
       axios.post(kuaiShouGraphqlUrl, params).then(res => {
-        resolve(res.data)
+        resolve(res)
       }).catch(err => {
         reject(err)
       })

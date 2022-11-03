@@ -6,7 +6,7 @@ const Api = {
   kuaiShouH5PhotoInfo: (params) => { 
     return new Promise((resolve, reject) => {
       axios.post(kuaiShouH5PhotoInfoUrl, params).then(res => {
-        resolve(res.data)
+        resolve(res)
       }).catch(err => {
         reject(err)
       })
