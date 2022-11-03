@@ -1,4 +1,4 @@
-const axios = require('axios')
+const axios = require('@/utils/request')
 // 快手网页
 const kuaiShouGraphqlUrl = 'https://www.kuaishou.com/graphql'
 const Api = {

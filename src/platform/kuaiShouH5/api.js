@@ -1,4 +1,4 @@
-const axios = require('axios')
+const axios = require('@/utils/request')
 // 快手h5网页
 const kuaiShouH5PhotoInfoUrl = 'https://m.gifshow.com/rest/wd/photo/info?kpn=undefined&captchaToken='
 const Api = {

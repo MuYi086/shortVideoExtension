@@ -16,9 +16,9 @@ const render = async function () {
   const btnFnInit = require('@/platform/btnFn')
   Util.checkLogin().then(res => {
     if (res) {
-      $('#loginWrap').show()
-    } else {
       $('#previewWrap').show()
+    } else {
+      $('#loginWrap').show()
     }
     btnFnInit()
   })

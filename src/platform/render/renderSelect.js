@@ -1,17 +1,16 @@
-// const GlobalApi = require('@/api')
+const GlobalApi = require('@/api')
 const btnAlert = require('@/platform/btnFn/btnAlert')
 const renderSelect = async function () {
-  // const params = {}
-  // const res = await GlobalApi.getIpList(params)
-  const res = { data: ['张三', '李四', '王五', '赵六'] }
-  if (res.data) {
-    return constructSelectList(res.data)
+  const params = {}
+  const res = await GlobalApi.monitorProjectWorkPlug(params)
+  if (res.rows) {
+    return constructSelectList(res.rows)
   } else {
     btnAlert('danger', res.msg)
   }
 }
 function constructSelectList (list) {
-  const head = '<select class="selectpicker" data-live-search="true">'
+  const head = '<select class="selectpicker" data-live-search="true" multiple>'
   const tail = '</select>'
   let content = ''
   for (let i = 0; i < list.length; i++) {
