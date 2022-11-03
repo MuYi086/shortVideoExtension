@@ -1,20 +1,16 @@
 const GlobalApi = require('@/api')
 const btnAlert = require('@/platform/btnFn/btnAlert')
-const ChromeStorage = require('@/utils/ChromeStorage')
 const renderSelect = async function () {
   const params = {}
-  const selectpickerCurrent = await ChromeStorage.get('selectpicker-current')
   return new Promise((resolve, reject) => {
     GlobalApi.monitorProjectWorkPlug(params).then(res => {
-      if (res.data.rows) {
-        const selectHtml = constructSelectList(res.data.rows)
-        $(selectHtml).prependTo('#previewWrap')
-        $('.selectpicker').selectpicker('val', selectpickerCurrent)
+      if (res.data.data) {
+        const selectHtml = constructSelectList(res.data.data)
         // btnSelectBindEvent()
-        resolve()
+        resolve(selectHtml)
       } else {
-        btnAlert('danger', res.data.msg)
-        reject(res.data.msg)
+        btnAlert('danger', res.msg)
+        reject('')
       }
     })
   })

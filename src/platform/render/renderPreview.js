@@ -1,5 +1,8 @@
-const renderPreview = function () {
-  return '<div id="previewWrap">' +
+const renderSelect = require('./renderSelect')
+const renderPreview = async function () {
+  const renderSelectHtml = await renderSelect()
+  const renderPreviewHtml = '<div id="previewWrap">' +
+    renderSelectHtml +
     '	  <br>' +
     '   <div class="preview">' +
     '     <div class="line"><i>搜索词：</i><span class="line-0"></span></div>' +
@@ -20,6 +23,13 @@ const renderPreview = function () {
     '		  <button type="button" class="btn btn-danger btn-logout btn-xs">退出</button>' +
     '	  </div>' +
     '</div>'
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(renderPreviewHtml)
+    } catch (err) {
+      reject('出错了')
+    }
+  })
 }
 
 module.exports = renderPreview

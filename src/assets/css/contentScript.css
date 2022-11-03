@@ -62,3 +62,10 @@ a.to-h5 {
   width: calc(100vw - 200px);
   z-index: 10000;
 }
+/* 下拉框样式 */
+.dropdown-menu li a {
+  width: 220px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
