@@ -3,6 +3,14 @@ const axios = require('@/utils/request')
 const kuaiShouGraphqlUrl = 'https://www.kuaishou.com/graphql'
 const Api = {
   // 快手-获取信息
-  kuaiShouGraphql: (params) => { return axios.post(kuaiShouGraphqlUrl, params).then(res => res.data) }
+  kuaiShouGraphql: (params) => { 
+    return new Promise((resolve, reject) => {
+      axios.post(kuaiShouGraphqlUrl, params).then(res => {
+        resolve(res.data)
+      }).catch(err => {
+        reject(err)
+      })
+    })  
+  }
 }
 module.exports = Api
