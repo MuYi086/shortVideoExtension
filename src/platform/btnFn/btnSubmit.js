@@ -37,7 +37,6 @@ function constructParams () {
 }
 function excuteTortNormal (params) {
   GlobalApi.monitorWorkResultAuditPlug(params).then(res => {
-    console.log(res, '----------res---------')
     if (res.data) {
       btnAlert('success', '提交成功')
     } else {

@@ -10,8 +10,10 @@ const renderSelect = async function () {
         resolve(selectHtml)
       } else {
         btnAlert('danger', res.msg)
-        reject('')
+        resolve('')
       }
+    }).catch(err => {
+      reject(err)
     })
   })
 }

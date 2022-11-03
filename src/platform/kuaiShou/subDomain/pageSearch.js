@@ -13,8 +13,6 @@ const pageSearch = {
     $('.search-button').click(function () {
       // 防止给页面过滤数据时页面还未渲染完成，加个延时
       setTimeout(that.constructJumpUrl.bind(that), 1000)
-      console.log('-------------------------attr----------------------')
-      that.constructVerifyResult()
     })
   },
   reset () {
@@ -55,10 +53,13 @@ const pageSearch = {
     for (let i = 0; i < feeds.length; i++) {
       const { author, photo } = feeds[i]
       const origin = 'https://m.gifshow.com'
+      const pcOrigin = 'https://www.kuaishou.com'
       const pathname = `/fw/photo/${photo.id}`
+      const pcPathname = `/short-video/${photo.id}`
       const search = `?authorId=${author.id}&streamSource=search&area=searchxxnull&searchKey=${this.keyword}`
       const href = `${origin}${pathname}${search}`
-      newFeeds.push({ href, caption: photo.caption })
+      const pcHref = `${pcOrigin}${pcPathname}${search}`
+      newFeeds.push({ href, pcHref: pcHref, caption: photo.caption })
     }
     return newFeeds
   },
@@ -69,32 +70,38 @@ const pageSearch = {
       if (!$(item).find('.video-info-content').find('.to-h5')[0]) {
         const videoInfoTitle = $(item).find('.video-info-title').text().trim()
         let h5Href = ''
+        let pcUrl = ''
         for (let i = 0; i < feeds.length; i++) {
-          const { href, caption } = feeds[i]
+          const { href, caption, pcHref } = feeds[i]
           // 去除超链接@标记
           const caption1 = caption.replace(/\(O3\w*\)/ig, '')
           // 去除首尾空格
           const caption2 = Util.trimSpace(caption1)
           if (videoInfoTitle == caption2) {
             h5Href = href
+            pcUrl = pcHref
             break
           }
         }
         if (h5Href) {
-          const insertDom = `<a href="${h5Href}" class="to-h5" target="_blank">跳转</a>`
+          const insertDom = `<a href="${h5Href}" data-pchref="${pcUrl}" class="to-h5" target="_blank">跳转</a>`
           $(item).find('.video-info-content').append(insertDom)
         }
       }
     })
+    // 更新审核结果
+    this.constructVerifyResult(feeds)
   },
   scrollEvent () {
     const that = this
     window.onscroll = function () {
-      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-      const { windowH } = Util.getWindowHeightWidth()
-      if (that.count === 1 && (scrollTop > windowH * 0.4)) {
-        that.constructJumpUrl(true)
-      }
+      setTimeout(() => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+        const { windowH } = Util.getWindowHeightWidth()
+        if (that.count === 1 && (scrollTop > windowH * 0.4)) {
+          that.constructJumpUrl(true)
+        }
+      }, 1000)
     }
   },
   monitorSearchInput () {
@@ -103,36 +110,37 @@ const pageSearch = {
       that.reset()
     })
   },
-  constructVerifyResult () {
-    // const arr = []
-    // list.forEach(li => {
-    //   arr.push(li.href)
-    // })
+  constructVerifyResult (list) {
+    const that = this
     const params = {
-      list: ['https://www.kuaishou.com/short-video/3xpkekkccztkk26?authorId=3xm35xyx7epswse&streamSource=search&area=searchxxnull&searchKey=破事精英']
-      // data: arr
+      list: list.map(li => { return li.pcHref })
     }
     Api.monitorWorkResultAuditUrlCheck(params).then(res => {
-      console.log(res, '-------------这是result-----------')
+      if (res.data) {
+        that.addVerifyBtn(res.data.data)
+      }
     }).catch(err => {
       console.log(err)
     })
   },
   // 给视频栏增加是否审核状态
-  // addVerifyBtn (feeds) {
-  //   $.each($('.video-container .video-card '), function (index , item) {
-  //     for (let i = 0; i < feeds.length; i++) {
-  //       if (feed[i].url === )
-  //     }
-  //     // 已经生成，就不二次生成了
-  //     if (!$(item).find('.video-info-content').find('.to-verify')[0]) {
-  //       let verifyBtn = ''
-  //       if (verifyBtn) {
-  //         const insertDom = `<span class="to-verify">跳转</span>`
-  //         $(item).find('.video-info-content').append(insertDom)
-  //       }
-  //     }
-  //   })
-  // }
+  addVerifyBtn (feeds) {
+    $.each($('.video-container .video-card '), function (index , item) {
+      // 已经生成，就不二次生成了
+      if (!$(item).find('.video-info-content').find('.to-verify')[0]) {
+        const videoInfoContent = $(item).find('.video-info-content')
+        const pcHref = videoInfoContent.find('.to-h5').attr('data-pchref')
+        let verifyDom = ''
+        for (let i = 0; i < feeds.length; i++) {
+          const fdLi = feeds[i]
+          if (pcHref === fdLi.url) {
+            verifyDom = `<span class="to-verify ${fdLi.check ? 'verifyed' : ''}">${fdLi.check ? '已审核' : '未审核'}</span>`
+            break
+          }
+        }
+        videoInfoContent.append(verifyDom)
+      }
+    })
+  }
 }
 module.exports = pageSearch

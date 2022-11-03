@@ -48,11 +48,20 @@ html {
   word-break: break-word;
 }
 /* 搜索页面注入按钮 */
-a.to-h5 {
+.video-info-content a.to-h5 {
   align-items: flex-end;
   padding: 2px;
   color: #fff !important;
-  background: #5bc0de;
+  background: #337ab7;
+}
+.video-info-content .to-verify {
+  background: #337ab7;
+  color: #fff;
+  padding: 2px;
+  margin-left: 10px;
+}
+.video-info-content .to-verify.verifyed {
+  background: #f0ad4e;
 }
 /* 提示样式 */
 #alertWrap {
