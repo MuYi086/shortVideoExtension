@@ -20,13 +20,15 @@ const pageWd = {
       Api.kuaiShouH5PhotoInfo(params).then(res => {
         const { search } = location
         const queryObj = Util.getQuery(search)
-        const { userName, kwaiId, userEid, caption, duration, likeCount, viewCount } = res.photo
+        const { userName, kwaiId, userEid, caption, duration, likeCount, viewCount, timestamp } = res.data.photo
         const userLink = decodeURI(`https://www.kuaishou.com/profile/${userEid}`)
         const searchKey = decodeURI(queryObj.searchKey)
         const videoUrl = decodeURI(`https://www.kuaishou.com/short-video/${photoId}${search}`)
         const durationStr = Util.mSecondSTrans(duration)
-        const groupData = { userName, kwaiId, userLink, caption, searchKey, videoUrl, durationStr, likeCount, viewCount }
-        resolve(groupData)
+        const publishDate = Util.formatDate(new Date(timestamp), 'yyyy-MM-dd hh:mm:ss')
+        const h5DetailData = { userName, kwaiId, userLink, caption, searchKey, videoUrl, durationStr, likeCount, viewCount, publishDate }
+        window['h5DetailData'] = h5DetailData
+        resolve(h5DetailData)
       }).catch(err => {
         reject(err)
       })

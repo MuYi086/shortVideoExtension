@@ -24,7 +24,7 @@ const GlobalApi = {
   // 监测后台-新增插件作品导入
   monitorWorkResultAuditPlug: (params) => { 
     return new Promise((resolve, reject) => {
-      axios.get(`${Config.API_URL}monitor/workResultAudit/plug`, params).then(res => {
+      axios.post(`${Config.API_URL}monitor/workResultAudit/plug`, params).then(res => {
         resolve(res)
       }).catch(err => {
         reject(err)
