@@ -12,14 +12,16 @@ const pageSearch = {
     const that = this
     $('.search-button').click(function () {
       // 防止给页面过滤数据时页面还未渲染完成，加个延时
-      setTimeout(that.searchData.bind(that), 1000)
+      setTimeout(that.constructJumpUrl.bind(that), 1000)
+      console.log('-------------------------attr----------------------')
+      that.constructVerifyResult()
     })
   },
   reset () {
     this.searchSessionId = ''
     this.count = 0
   },
-  searchData (isAddSearchSessionId = false) {
+  constructJumpUrl (isAddSearchSessionId = false) {
     const that = this
     that.count++
     const queryObj = Util.getQuery(location.search)
@@ -91,7 +93,7 @@ const pageSearch = {
       const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
       const { windowH } = Util.getWindowHeightWidth()
       if (that.count === 1 && (scrollTop > windowH * 0.4)) {
-        that.searchData(true)
+        that.constructJumpUrl(true)
       }
     }
   },
@@ -100,6 +102,37 @@ const pageSearch = {
     $('.search-input').focus(function () {
       that.reset()
     })
-  }
+  },
+  constructVerifyResult () {
+    // const arr = []
+    // list.forEach(li => {
+    //   arr.push(li.href)
+    // })
+    const params = {
+      list: ['https://www.kuaishou.com/short-video/3xpkekkccztkk26?authorId=3xm35xyx7epswse&streamSource=search&area=searchxxnull&searchKey=破事精英']
+      // data: arr
+    }
+    Api.monitorWorkResultAuditUrlCheck(params).then(res => {
+      console.log(res, '-------------这是result-----------')
+    }).catch(err => {
+      console.log(err)
+    })
+  },
+  // 给视频栏增加是否审核状态
+  // addVerifyBtn (feeds) {
+  //   $.each($('.video-container .video-card '), function (index , item) {
+  //     for (let i = 0; i < feeds.length; i++) {
+  //       if (feed[i].url === )
+  //     }
+  //     // 已经生成，就不二次生成了
+  //     if (!$(item).find('.video-info-content').find('.to-verify')[0]) {
+  //       let verifyBtn = ''
+  //       if (verifyBtn) {
+  //         const insertDom = `<span class="to-verify">跳转</span>`
+  //         $(item).find('.video-info-content').append(insertDom)
+  //       }
+  //     }
+  //   })
+  // }
 }
 module.exports = pageSearch
