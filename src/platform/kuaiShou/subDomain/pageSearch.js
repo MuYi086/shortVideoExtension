@@ -113,7 +113,7 @@ const pageSearch = {
   constructVerifyResult (list) {
     const that = this
     const params = {
-      list: list.map(li => { return li.pcHref })
+      data: list.map(li => { return li.pcHref })
     }
     Api.monitorWorkResultAuditUrlCheck(params).then(res => {
       if (res.data) {

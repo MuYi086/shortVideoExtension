@@ -190,6 +190,25 @@ function getWindowHeightWidth () {
   return Config.windowWH
 }
 
+// 观察者
+const domWatch = function (domObj, callback) {
+  return new DomWatchClass(domObj, callback)
+}
+const DomWatchClass = function (domObj, callback) {
+  const domObserver = new MutationObserver(callback)
+  const option = {
+    childList: true, // 子节点的变动
+    attributes: false, // 属性的变动
+    subtree: true,
+    characterData: true // 节点内容或节点文本的变动
+  }
+  domObserver.observe(domObj, option)
+  this.tempObj = domObserver
+  this.disconnect = function () {
+    this.tempObj.disconnect()
+  }
+}
+
 const Util = {
   addZero,
   newTimeStamp,
@@ -207,7 +226,8 @@ const Util = {
   getPhotoIdByKuaiShouUrl,
   checkLogin,
   trimSpace,
-  getWindowHeightWidth
+  getWindowHeightWidth,
+  domWatch
 }
 
 module.exports = Util

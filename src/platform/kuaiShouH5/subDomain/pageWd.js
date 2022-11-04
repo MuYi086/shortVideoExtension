@@ -3,6 +3,7 @@ const Util = require('@/utils/Util')
 const Api = require('../api')
 const pageWd = {
   init: function () {
+    this.initVideoControl()
     this.getData().then(data => {
       dataPreview(data)
     })
@@ -34,6 +35,14 @@ const pageWd = {
         reject(err)
       })
     })
+  },
+  initVideoControl () {
+    setTimeout(() => {
+      const video = $('.kwai-player-container-video video')
+      if (video) {
+        video.attr('controls', true)
+      }
+    }, 1500)
   }
 }
 module.exports = pageWd

@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'test') {
 }
 // 生产环境
 if (process.env.NODE_ENV === 'production') {
-  API_URL = 'http://192.168.1.58:8094/'
+  API_URL = 'https://626439j4z2.zicp.fun/'
 }
 const Config = {
   API_URL,
