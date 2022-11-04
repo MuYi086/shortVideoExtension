@@ -209,6 +209,14 @@ const DomWatchClass = function (domObj, callback, option) {
   }
 }
 
+// 从快手带签名的图片img中提取出目录和地址
+function dealKuaiShouImgSrc (src) {
+  if (!src) return false
+  const src1 = src.split('?')[0]
+  const src2 = src1.replace(/.*com\//ig, '')
+  return src2
+}
+
 const Util = {
   addZero,
   newTimeStamp,
@@ -227,7 +235,8 @@ const Util = {
   checkLogin,
   trimSpace,
   getWindowHeightWidth,
-  domWatch
+  domWatch,
+  dealKuaiShouImgSrc
 }
 
 module.exports = Util
