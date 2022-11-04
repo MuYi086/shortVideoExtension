@@ -117,7 +117,6 @@ const pageSearch = {
       if (res.data && res.data.data) {
         that.addVerifyBtn(res.data.data)
       } else {
-        console.log(res, '这是错误')
         btnAlert('danger', res.data.msg)
       }
     }).catch(err => {
