@@ -191,17 +191,17 @@ function getWindowHeightWidth () {
 }
 
 // 观察者
-const domWatch = function (domObj, callback) {
-  return new DomWatchClass(domObj, callback)
+const domWatch = function (domObj, callback, option = {childList: true, attributes: false, subtree: false, characterData: false}) {
+  // const option = {
+  //   childList: true, // 监听 target 节点中发生的节点的新增与删除
+  //   attributes: false, // 当为 true 时观察所有监听的节点属性值的变化
+  //   subtree: false, // 监听以 target 为根节点的整个子树。包括子树中所有节点的属性
+  //   characterData: false // 节点内容或节点文本的变动
+  // }
+  return new DomWatchClass(domObj, callback, option)
 }
-const DomWatchClass = function (domObj, callback) {
+const DomWatchClass = function (domObj, callback, option) {
   const domObserver = new MutationObserver(callback)
-  const option = {
-    childList: true, // 子节点的变动
-    attributes: false, // 属性的变动
-    subtree: true,
-    characterData: true // 节点内容或节点文本的变动
-  }
   domObserver.observe(domObj, option)
   this.tempObj = domObserver
   this.disconnect = function () {

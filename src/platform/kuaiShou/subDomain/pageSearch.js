@@ -1,15 +1,19 @@
 const Util = require('@/utils/Util')
 const Api = require('../api')
+const btnAlert = require('@/platform/btnFn/btnAlert')
 const pageSearch = {
   init: function () {
     this.searchSessionId = ''
     this.count = 0
+    this.isInLoading = false
+    this.feeds = []
+    this.isInputStopTimes = 0
     this.getData()
-    this.scrollEvent()
     this.monitorSearchInput()
   },
   getData () {
     const that = this
+    setTimeout(that.watchVideoContainer.bind(that), 1500)
     $('.search-button').click(function () {
       // 防止给页面过滤数据时页面还未渲染完成，加个延时
       setTimeout(that.constructJumpUrl.bind(that), 1000)
@@ -18,10 +22,14 @@ const pageSearch = {
   reset () {
     this.searchSessionId = ''
     this.count = 0
+    this.isInLoading = false
+    this.feeds = []
+    this.isInputStopTimes = 1
   },
   constructJumpUrl (isAddSearchSessionId = false) {
     const that = this
-    that.count++
+    this.isInLoading = true
+    that.count += 1
     const queryObj = Util.getQuery(location.search)
     that.keyword = decodeURI(queryObj.searchKey)
     const params = {
@@ -35,15 +43,17 @@ const pageSearch = {
     }
     // 二次查询是否追加searchSessionId
     if (isAddSearchSessionId) {
-      params.variables.pcursor = '1'
+      params.variables.pcursor = `${this.count - 1}`
       params.variables.searchSessionId = this.searchSessionId
     }
     Api.kuaiShouGraphql(params).then(res => {
       const { visionSearchPhoto } = res.data.data
-      const feedsList = that.dealFeeds(visionSearchPhoto.feeds)
+      that.feedsList = that.dealFeeds(visionSearchPhoto.feeds)
       that.searchSessionId = visionSearchPhoto.searchSessionId
-      that.addModifyBtn(feedsList)
+      that.addModifyBtn(that.feedsList)
+      that.isInLoading = false
     }).catch(err => {
+      that.isInLoading = false
       console.log(err)
     })
   },
@@ -92,18 +102,6 @@ const pageSearch = {
     // 更新审核结果
     this.constructVerifyResult(feeds)
   },
-  scrollEvent () {
-    const that = this
-    window.onscroll = function () {
-      setTimeout(() => {
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-        const { windowH } = Util.getWindowHeightWidth()
-        if (that.count === 1 && (scrollTop > windowH * 0.4)) {
-          that.constructJumpUrl(true)
-        }
-      }, 1000)
-    }
-  },
   monitorSearchInput () {
     const that = this
     $('.search-input').focus(function () {
@@ -116,8 +114,11 @@ const pageSearch = {
       data: list.map(li => { return li.pcHref })
     }
     Api.monitorWorkResultAuditUrlCheck(params).then(res => {
-      if (res.data) {
+      if (res.data && res.data.data) {
         that.addVerifyBtn(res.data.data)
+      } else {
+        console.log(res, '这是错误')
+        btnAlert('danger', res.data.msg)
       }
     }).catch(err => {
       console.log(err)
@@ -140,6 +141,20 @@ const pageSearch = {
         }
         videoInfoContent.append(verifyDom)
       }
+    })
+  },
+  watchVideoContainer () {
+    const that = this
+    Util.domWatch(document.querySelector('.video-container'), function () {
+      if (that.isInputStopTimes >= 1) {
+        that.isInputStopTimes -= 1
+        return false
+      }
+      setTimeout(() => {
+        if (that.count === 1 || that.count === 2) {
+          that.constructJumpUrl(true)
+        }
+      }, 1500)
     })
   }
 }
