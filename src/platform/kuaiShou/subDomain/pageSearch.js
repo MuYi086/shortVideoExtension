@@ -150,7 +150,7 @@ const pageSearch = {
         return false
       }
       setTimeout(() => {
-        if (that.count === 1 || that.count === 2) {
+        if (that.count >= 1) {
           that.constructJumpUrl(true)
         }
       }, 1500)
