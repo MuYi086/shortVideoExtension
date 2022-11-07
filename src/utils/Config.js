@@ -16,17 +16,18 @@ const Config = {
   API_URL,
   windowWH,
   wholeSiteList: [ // 网站列表
-    { url: 'https://*.douyin.com/*', thumb: 'douyin', name: '抖音' },
-    { url: 'https://*.kuaishou.com/*', thumb: 'kuaishou', name: '快手' },
+  { url: 'https://*.ixigua.com/*', thumb: 'yg365', name: '西瓜视频' },
+  { url: 'https://*.bilibili.com/*', thumb: 'bilibiliVideo', name: '哔哩哔哩' },
+  { url: 'https://v.qq.com/*', thumb: 'tencentVideo', name: '腾讯视频' },
+  { url: 'https://v.youku.com/*', thumb: 'youkuVideo', name: '优酷视频' },
+    { url: 'https://*.douyin.com/*', thumb: 'douyinVideo', name: '抖音短视频' },
+    { url: 'https://weibo.com/*', thumb: 'weiboVideo', name: '微博视频' },
+    { url: 'https://*.kuaishou.com/*', thumb: 'kuaishouVideo', name: '快手' },
     { url: 'https://*.gifshow.com/*', thumb: 'gifshow', name: '快手H5' },
-    { url: 'https://*.ixigua.com/*', thumb: 'xigua', name: '西瓜' },
-    { url: 'https://*.bilibili.com/*', thumb: 'bilibili', name: '哔哩哔哩' },
-    { url: 'https://haokan.baidu.com/*', thumb: 'haokan', name: '好看' },
-    { url: 'https://tv.sohu.com/*', thumb: 'sohu', name: '搜狐' },
-    { url: 'https://weibo.com/*', thumb: 'weibo', name: '微博' },
-    { url: 'https://v.youku.com/*', thumb: 'youku', name: '优酷' },
-    { url: 'https://play.tudou.com/*', thumb: 'tudou', name: '土豆' },
-    { url: 'https://v.qq.com/*', thumb: 'qq', name: 'qq' },
+    { url: 'https://xiaohongshu.com/*', thumb: 'xiaohongshuVideo', name: '小红书' },
+    { url: 'https://www.mgtv.com/*', thumb: 'mgtvVideo', name: '芒果tv' },
+    { url: 'https://www.toutiao.com/*', thumb: 'toutiaoVideo', name: '今日头条' }
+    // { url: 'https://play.tudou.com/*', thumb: 'wxVideo', name: '微信视频号' },
   ]
 }
 module.exports = Config
