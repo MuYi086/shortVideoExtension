@@ -61,14 +61,14 @@ const pageSearch = {
   dealFeeds (feeds) {
     const newFeeds = []
     for (let i = 0; i < feeds.length; i++) {
-      const { author, photo } = feeds[i]
+      const { photo } = feeds[i]
       const origin = 'https://m.gifshow.com'
       const pcOrigin = 'https://www.kuaishou.com'
       const pathname = `/fw/photo/${photo.id}`
       const pcPathname = `/short-video/${photo.id}`
-      const search = `?authorId=${author.id}&streamSource=search&area=searchxxnull&searchKey=${this.keyword}`
-      const href = `${origin}${pathname}${search}`
-      const pcHref = `${pcOrigin}${pcPathname}${search}`
+      // const search = `?authorId=${author.id}&streamSource=search&area=searchxxnull&searchKey=${this.keyword}`
+      const href = `${origin}${pathname}`
+      const pcHref = `${pcOrigin}${pcPathname}`
       newFeeds.push({ href, pcHref: pcHref, caption: photo.caption, coverUrl: photo.coverUrl })
     }
     return newFeeds
@@ -81,9 +81,9 @@ const pageSearch = {
         const videoInfoTitle = $(item).find('.video-info-title').text().trim()
         let h5Href = ''
         let pcUrl = ''
-        const imgCover = $(item).find('.poster-img').attr('src')
+        // const imgCover = $(item).find('.poster-img').attr('src')
         for (let i = 0; i < feeds.length; i++) {
-          const { href, caption, pcHref, coverUrl } = feeds[i]
+          const { href, caption, pcHref } = feeds[i]
           // 去除超链接@标记
           const caption1 = caption.replace(/\(O3\w*\)/ig, '')
           // 去除首尾空格
@@ -91,9 +91,6 @@ const pageSearch = {
           if (videoInfoTitle == caption2) {
             h5Href = href
             pcUrl = pcHref
-            console.log(imgCover)
-            console.log(coverUrl)
-            console.log('打印俩者链接', '-------------------------attr----------------------')
             break
           }
         }

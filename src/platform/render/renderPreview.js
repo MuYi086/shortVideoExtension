@@ -3,7 +3,6 @@ const renderPreview = async function () {
   const renderSelectHtml = await renderSelect()
   const renderPreviewHtml = '<div id="previewWrap">' +
     '   <div class="preview">' +
-    '     <div class="line"><i>搜索词：</i><span class="line-0"></span></div>' +
     '     <div class="line"><i>侵权链接：</i><span class="line-1"></span></div>' +
     '     <div class="line"><i>侵权标题:</i><span class="line-2"></span></div>' +
     '     <div class="line"><i>时长:</i><span class="line-3"></span></div>' +
