@@ -28,7 +28,8 @@ const pageWd = {
         // const durationStr = Util.mSecondSTrans(duration)
         const durationStr = Math.floor(duration / 1000)
         const publishDate = Util.formatDate(new Date(timestamp), 'yyyy-MM-dd hh:mm:ss')
-        const h5DetailData = { userName, kwaiId, userLink, caption, videoUrl, durationStr, likeCount, viewCount, publishDate }
+        const caption1 = Util.kuaiShouCaptionDeal(caption)
+        const h5DetailData = { userName, kwaiId, userLink, caption: caption1, videoUrl, durationStr, likeCount, viewCount, publishDate }
         window['h5DetailData'] = h5DetailData
         resolve(h5DetailData)
       }).catch(err => {

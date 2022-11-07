@@ -179,6 +179,13 @@ function trimSpace (str) {
   return str2
 }
 
+// 快手caption去除@信息
+function kuaiShouCaptionDeal (str) {
+  const caption = str.replace(/\(O3\w*\)/ig, '')
+  const caption1 = trimSpace(caption)
+  return caption1
+}
+
 // 获取窗口的宽度和高度: 包含滚动条
 function getWindowHeightWidth () {
   if (!Config.windowWH.windowW) {
@@ -234,6 +241,7 @@ const Util = {
   getPhotoIdByKuaiShouUrl,
   checkLogin,
   trimSpace,
+  kuaiShouCaptionDeal,
   getWindowHeightWidth,
   domWatch,
   dealKuaiShouImgSrc

@@ -69,7 +69,8 @@ const pageSearch = {
       // const search = `?authorId=${author.id}&streamSource=search&area=searchxxnull&searchKey=${this.keyword}`
       const href = `${origin}${pathname}`
       const pcHref = `${pcOrigin}${pcPathname}`
-      newFeeds.push({ href, pcHref: pcHref, caption: photo.caption, coverUrl: photo.coverUrl })
+      const caption = Util.kuaiShouCaptionDeal(photo.caption)
+      newFeeds.push({ href, pcHref: pcHref, caption: caption, coverUrl: photo.coverUrl })
     }
     return newFeeds
   },
@@ -84,11 +85,9 @@ const pageSearch = {
         // const imgCover = $(item).find('.poster-img').attr('src')
         for (let i = 0; i < feeds.length; i++) {
           const { href, caption, pcHref } = feeds[i]
-          // 去除超链接@标记
-          const caption1 = caption.replace(/\(O3\w*\)/ig, '')
-          // 去除首尾空格
-          const caption2 = Util.trimSpace(caption1)
-          if (videoInfoTitle == caption2) {
+          // 去除超链接@标记,并去除首尾空格
+          const caption1 = Util.kuaiShouCaptionDeal(caption)
+          if (videoInfoTitle == caption1) {
             h5Href = href
             pcUrl = pcHref
             break

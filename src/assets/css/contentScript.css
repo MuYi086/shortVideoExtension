@@ -1,6 +1,7 @@
 html {
   font-size: 12px !important;
 }
+/* 插件样式开始 */
 #monitor {
   position: fixed;
   width: 250px;
@@ -47,7 +48,25 @@ html {
   display: inline-block;
   word-break: break-word;
 }
-/* 搜索页面注入按钮 */
+#alertWrap {
+  position: fixed;
+  top: 80px;
+  left: 100px;
+  width: calc(100vw - 200px);
+  z-index: 10000;
+}
+.dropdown-menu.open {
+  height: 200px !important;
+  overflow-y: scroll !important;
+}
+.dropdown-menu li a {
+  width: 220px;
+  /* overflow: hidden; */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/* 插件样式结束 */
+/* 搜索页面样式开始 */
 .video-info-content a.to-h5 {
   align-items: flex-end;
   padding: 2px;
@@ -63,22 +82,4 @@ html {
 .video-info-content .to-verify.verifyed {
   background: #f0ad4e;
 }
-/* 提示样式 */
-#alertWrap {
-  position: fixed;
-  top: 80px;
-  left: 100px;
-  width: calc(100vw - 200px);
-  z-index: 10000;
-}
-/* 下拉框样式 */
-.dropdown-menu.open {
-  height: 200px !important;
-  overflow-y: scroll !important;
-}
-.dropdown-menu li a {
-  width: 220px;
-  /* overflow: hidden; */
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
+/* 搜索页面样式结束 */

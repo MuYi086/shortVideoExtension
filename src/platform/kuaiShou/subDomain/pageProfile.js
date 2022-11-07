@@ -7,22 +7,20 @@ const pageProfile = {
     this.userId = pathnameArr[pathnameArr.length - 1]
     this.count = 0
     this.isInLoading = false
-    this.feeds = []
-    this.isInputStopTimes = 0
+    this.feedsList = []
     this.pcursor = ''
     this.getData()
   },
   getData () {
     const that = this
-    setTimeout(that.watchVideoContainer.bind(that), 1500)
+    setTimeout(that.watchVideoContainer.bind(that), 1000)
     // 防止给页面过滤数据时页面还未渲染完成，加个延时
     setTimeout(that.constructJumpUrl.bind(that), 1500)
   },
   reset () {
     this.count = 0
     this.isInLoading = false
-    this.feeds = []
-    this.isInputStopTimes = 1
+    this.feedsList = []
     this.pcursor = ''
   },
   constructJumpUrl (isAddSearchPcursor = false) {
@@ -45,10 +43,10 @@ const pageProfile = {
       params.variables.pcursor = `${this.count - 1}`
     }
     Api.kuaiShouGraphql(params).then(res => {
-      const { visionSearchPhoto } = res.data.data
-      that.feedsList = that.dealFeeds(visionSearchPhoto.feeds)
-      that.pcursor = visionSearchPhoto.pcursor
-      that.addModifyBtn(that.feedsList)
+      const { visionProfilePhotoList } = res.data.data
+      that.feedsList = [...that.feedsList, ...that.dealFeeds(visionProfilePhotoList.feeds)]
+      that.pcursor = visionProfilePhotoList.pcursor
+      that.addModifyBtn()
       that.isInLoading = false
     }).catch(err => {
       that.isInLoading = false
@@ -64,45 +62,48 @@ const pageProfile = {
       const pcOrigin = 'https://www.kuaishou.com'
       const pathname = `/fw/photo/${photo.id}`
       const pcPathname = `/short-video/${photo.id}`
-      // const search = `?authorId=${author.id}&streamSource=search&area=searchxxnull&searchKey=${this.keyword}`
       const href = `${origin}${pathname}`
       const pcHref = `${pcOrigin}${pcPathname}`
-      newFeeds.push({ href, pcHref: pcHref, caption: photo.caption, coverUrl: photo.coverUrl })
+      const durationStr = Math.floor(photo.duration / 1000)
+      const caption = Util.kuaiShouCaptionDeal(photo.caption)
+      newFeeds.push({ href, pcHref: pcHref, caption: caption, coverUrl: photo.coverUrl, duration: durationStr })
     }
     return newFeeds
   },
   // 给视频栏增加自定义按钮
-  addModifyBtn (feeds) {
-    $.each($('.video-container .video-card '), function (index , item) {
-      // 已经生成，就不二次生成了
-      if (!$(item).find('.video-info-content').find('.to-h5')[0]) {
-        const videoInfoTitle = $(item).find('.video-info-title').text().trim()
-        let h5Href = ''
-        let pcUrl = ''
-        const imgCover = $(item).find('.poster-img').attr('src')
-        for (let i = 0; i < feeds.length; i++) {
-          const { href, caption, pcHref, coverUrl } = feeds[i]
-          // 去除超链接@标记
-          const caption1 = caption.replace(/\(O3\w*\)/ig, '')
-          // 去除首尾空格
-          const caption2 = Util.trimSpace(caption1)
-          if (videoInfoTitle == caption2) {
-            h5Href = href
-            pcUrl = pcHref
-            console.log(imgCover)
-            console.log(coverUrl)
-            console.log('打印俩者链接', '-------------------------attr----------------------')
-            break
-          }
-        }
-        if (h5Href) {
-          const insertDom = `<a href="${h5Href}" data-pchref="${pcUrl}" class="to-h5" target="_blank">跳转</a>`
-          $(item).find('.video-info-content').append(insertDom)
-        }
-      }
-    })
-    // 更新审核结果
-    this.constructVerifyResult(feeds)
+  addModifyBtn () {
+    const lenStart = this.count >= 2 ? (this.count - 2) * 20 : 0
+    const lenEnd = this.count >= 2 ? (this.count - 1) * 20 : 0
+    const feeds = this.feedsList.slice(lenStart, lenEnd)
+    console.log(this.count, feeds)
+    return false
+    // $.each($('.user-photo-list .video-card '), function (index , item) {
+    //   // 已经生成，就不二次生成了
+    //   if (!$(item).find('.video-info-content').find('.to-h5')[0]) {
+    //     let h5Href = ''
+    //     let pcUrl = ''
+    //     const imgCover = $(item).find('.poster-img').attr('src')
+    //     const imgCoverDeald = Util.dealKuaiShouImgSrc(imgCover)
+    //     for (let i = 0; i < feeds.length; i++) {
+    //       const { href, pcHref, coverUrl } = feeds[i]
+    //       const coverUrlDeald = Util.dealKuaiShouImgSrc(coverUrl)
+    //       console.log(imgCoverDeald)
+    //       console.log(coverUrlDeald)
+    //       if (imgCoverDeald == coverUrlDeald) {
+    //         h5Href = href
+    //         pcUrl = pcHref
+    //         console.log('打印俩者链接', '-------------------------attr----------------------')
+    //         break
+    //       }
+    //     }
+    //     if (h5Href) {
+    //       const insertDom = `<a href="${h5Href}" data-pchref="${pcUrl}" class="to-h5" target="_blank">跳转</a>`
+    //       $(item).find('.video-info-content').prepend(insertDom)
+    //     }
+    //   }
+    // })
+    // // 更新审核结果
+    // this.constructVerifyResult(feeds)
   },
   constructVerifyResult (list) {
     const that = this
@@ -134,17 +135,13 @@ const pageProfile = {
             break
           }
         }
-        videoInfoContent.append(verifyDom)
+        videoInfoContent.prepend(verifyDom)
       }
     })
   },
   watchVideoContainer () {
     const that = this
-    Util.domWatch(document.querySelector('.video-container'), function () {
-      if (that.isInputStopTimes >= 1) {
-        that.isInputStopTimes -= 1
-        return false
-      }
+    Util.domWatch(document.querySelector('.user-photo-list'), function () {
       setTimeout(() => {
         if (that.count >= 1) {
           that.constructJumpUrl(true)
