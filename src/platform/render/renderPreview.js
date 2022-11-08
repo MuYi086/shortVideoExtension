@@ -2,6 +2,16 @@ const renderSelect = require('./renderSelect')
 const renderPreview = async function () {
   const renderSelectHtml = await renderSelect()
   const renderPreviewHtml = '<div id="previewWrap">' +
+    renderSelectHtml +
+    '	  <br>' +
+    '	  <br>' +
+    '	  <div id="btn-wrapper" class="btn-group">' +
+    '		  <button type="button" class="btn btn-primary btn-submit-tort btn-xs">侵权</button>' +
+    // '		  <button type="button" class="btn btn-primary btn-submit-normal btn-xs">正常</button>' +
+    '		  <button type="button" class="btn btn-danger btn-logout btn-xs">退出</button>' +
+    '	  </div>' +
+    '	  <br>' +
+    '	  <br>' +
     '   <div class="preview">' +
     '     <div class="line"><i>侵权链接：</i><span class="line-1"></span></div>' +
     '     <div class="line"><i>侵权标题:</i><span class="line-2"></span></div>' +
@@ -13,14 +23,6 @@ const renderPreview = async function () {
     '     <div class="line"><i>热度:</i><span class="line-8"></span></div>' +
     '     <div class="line"><i>浏览量:</i><span class="line-9"></span></div>' +
     '   </div>' +
-    renderSelectHtml +
-    '	  <br>' +
-    '	  <br>' +
-    '	  <div id="btn-wrapper" class="btn-group">' +
-    '		  <button type="button" class="btn btn-warning btn-submit-tort btn-xs">侵权</button>' +
-    '		  <button type="button" class="btn btn-primary btn-submit-normal btn-xs">正常</button>' +
-    '		  <button type="button" class="btn btn-danger btn-logout btn-xs">退出</button>' +
-    '	  </div>' +
     '</div>'
   return new Promise((resolve, reject) => {
     try {

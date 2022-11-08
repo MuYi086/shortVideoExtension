@@ -33,8 +33,10 @@ html {
   margin-right: 10px;
 }
 #btn-wrapper .btn-logout {
-  float: right;
-  width: 20%;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  /* width: 20%; */
 }
 .preview .line {
   font-size: 12px;

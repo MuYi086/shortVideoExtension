@@ -33,14 +33,18 @@ function constructParams () {
     // id: '', // 作品唯一标识
     name: selectNameArr.join(','), // 作品名称
     platform: Util.judgeWebType(), // 平台名称
-    title: caption, // 标题
-    url: videoUrl, // 侵权链接
-    // userId: '', // 分配id
-    publishDate: publishDate, // 发布时间
-    author: userName, // 侵权作者
-    authorId: kwaiId, // 作者id
-    authorLink: userLink, // 作者主页链接
-    timeSpan: durationStr, // 视频时长/秒
+    source: 1, // 0:监测表;1:插件
+    plugList: [
+      {
+        timeSpan: durationStr, // 视频时长/秒
+        title: caption, // 标题
+        url: videoUrl, // 侵权链接
+        publishDate: publishDate, // 发布时间
+        authorLink: userLink, // 作者主页链接
+        author: userName, // 侵权作者
+        authorId: kwaiId // 作者id
+      }
+    ]
   }
   return params
 }
