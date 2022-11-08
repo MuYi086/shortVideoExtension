@@ -7,28 +7,35 @@ const pageProfile = {
     const pathnameArr = location.pathname.split('/')
     this.userId = pathnameArr[pathnameArr.length - 1]
     this.count = 0
-    this.isInLoading = false
     this.feedsList = []
     this.pcursor = ''
-    this.lastStoreDomList = []
     this.getData()
+  },
+  createCollectBtn () {
+    const that = this
+    const collectHtml = `<div class="collect-wrap"><button type="button" class="btn btn-primary btn-collect btn-xs">批量收藏</button></div>`
+    $('body').append(collectHtml)
+    $('.collect-wrap .btn-collect').click(function () {
+      const arr = that.constructCollectArr()
+      console.log(arr)
+    })
   },
   getData () {
     const that = this
+    // 创建批量收藏按钮
+    setTimeout(this.createCollectBtn.bind(that), 1500)
+    // 监听videoContainer
     setTimeout(that.watchVideoContainer.bind(that), 1500)
     // 防止给页面过滤数据时页面还未渲染完成，加个延时
     setTimeout(that.constructJumpUrl.bind(that), 1500)
   },
   reset () {
     this.count = 0
-    this.isInLoading = false
     this.feedsList = []
     this.pcursor = ''
-    this.lastStoreDomList = []
   },
   constructJumpUrl (isAddSearchPcursor = false) {
     const that = this
-    this.isInLoading = true
     that.count += 1
     const queryObj = Util.getQuery(location.search)
     that.keyword = decodeURI(queryObj.searchKey)
@@ -50,9 +57,7 @@ const pageProfile = {
       that.feedsList = [...that.feedsList, ...that.dealFeeds(visionProfilePhotoList.feeds)]
       that.pcursor = visionProfilePhotoList.pcursor
       console.log(that.feedsList)
-      that.isInLoading = false
     }).catch(err => {
-      that.isInLoading = false
       console.log(err)
     })
   },
@@ -102,7 +107,7 @@ const pageProfile = {
       const sda = srcDomArr[m]
       // 添加多选框
       if ($(sda).parents('.video-card-main').find('.img-check').length <= 0) {
-        $(sda).parents('.video-card-main').append('<input class="img-check" type="checkbox">')
+        $(sda).parents('.video-card-main').append(`<input class="img-check check-${m}" type="checkbox">`)
       }
       // 如果已经添加跳转按钮，跳过
       if ($(sda).parents('.video-card').find('.video-info-content').find('.to-h5').length > 0) {
@@ -112,7 +117,7 @@ const pageProfile = {
         const fdl = this.feedsList[n]
         if (Util.dealKuaiShouImgSrc(sda.src) === Util.dealKuaiShouImgSrc(fdl.coverUrl)) {
           photo = fdl
-          Object.assign(sda, fdl)
+          $(sda).attr('data-fdl', JSON.stringify(fdl))
           break
         }
       }
@@ -122,7 +127,6 @@ const pageProfile = {
       }
     }
     console.log(srcDomArr)
-    this.lastStoreDomList = srcDomArr
   },
   addVerifyBtn (srcDomArr) {
     const that = this
@@ -138,6 +142,19 @@ const pageProfile = {
     }).catch(err => {
       console.log(err)
     })
+  },
+  constructCollectArr () {
+    const arr = []
+    $.each($('.user-photo-list .video-card'), function (index , item) {
+      if ($(item).find('.img-check').prop('checked')) {
+        const fdlStr = $(item).find('.poster-img')[0].dataset['fdl']
+        if (fdlStr) {
+          const { pcHref, duration, caption } = JSON.parse(fdlStr)
+          arr.push({ caption, duration, pcHref })
+        }
+      }
+    })
+    return arr
   }
 }
 eventEmitter.on('kuaishou-profile', pageProfile.scrollEnd.bind(pageProfile))

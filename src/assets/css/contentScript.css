@@ -90,6 +90,12 @@ html {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 200;
+}
+.collect-wrap {
+  position: fixed;
+  left: 40px;
+  bottom: 40px;
   z-index: 10000;
 }
 /* 个人中心页面样式结束 */
