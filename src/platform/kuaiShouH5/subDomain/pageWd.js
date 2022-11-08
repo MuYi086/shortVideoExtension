@@ -3,6 +3,7 @@ const Util = require('@/utils/Util')
 const Api = require('../api')
 const pageWd = {
   init: function () {
+    this.count = 0
     this.initVideoControl()
     this.getData().then(data => {
       dataPreview(data)
@@ -37,7 +38,11 @@ const pageWd = {
     setTimeout(() => {
       const video = $('.kwai-player-container-video video')
       if (video) {
-        video.attr('controls', true)
+        video.addClass('old-video')
+        const videoSrc = video.attr('src')
+        const newVideo = `<video controls autoplay muted class="player-video new-video" name="media"><source src="${videoSrc}"></video>`
+        video.after(newVideo)
+        $('.old-video').hide()
       }
     }, 1500)
   }
