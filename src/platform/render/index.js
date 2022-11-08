@@ -16,7 +16,6 @@ const render = async function () {
     $('body').append(renderAlertHtml)
     $('body').append(monitorWrap)
     const selectpickerCurrent = await ChromeStorage.get('selectpicker-current')
-    const workList = await ChromeStorage.get('workList')
     $('.selectpicker').selectpicker('val', selectpickerCurrent)
     const btnFnInit = require('@/platform/btnFn')
     // btnFn中select结构体是动态生成的
@@ -25,12 +24,6 @@ const render = async function () {
         $('#loginWrap').show()
       } else {
         $('#previewWrap').show()
-        // 存在IP名称缓存
-        if (workList) {
-          $('#work-select').show()
-        } else {
-          $('#work-add').show()
-        }
       }
       btnFnInit()
     })

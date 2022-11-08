@@ -21,8 +21,7 @@ html { font-size: 12px !important; }
 #work-add{width: 216px;position: relative;}
 #work-add textarea {width: 216px;height:50px;box-sizing:border-box;}
 #work-add .btn-workAdd {position: absolute;bottom: 8px;right: 2px;}
-#work-add,
-#work-select {display: none;}
+.disNone {display: none;}
 #btn-wrapper,
 #btn-wrapper .btn-login {
   width: 100%;
@@ -39,6 +38,11 @@ html { font-size: 12px !important; }
   position: fixed;
   bottom: 40px;
   right: 40px;
+}
+#btn-wrapper .btn-selectClear {
+  position: fixed;
+  bottom: 40px;
+  right: 100px;
 }
 .preview .line {
   font-size: 12px;

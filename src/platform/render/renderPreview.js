@@ -1,7 +1,5 @@
-// const renderSelect = require('./renderSelect')
 const renderEditSelect = require('./renderEditSelect')
 const renderPreview = async function () {
-  // const renderSelectHtml = await renderSelect()
   const renderEditSelectHtml = await renderEditSelect()
   const renderPreviewHtml = '<div id="previewWrap">' +
     renderEditSelectHtml +
@@ -10,6 +8,7 @@ const renderPreview = async function () {
     '	  <div id="btn-wrapper" class="btn-group">' +
     '		  <button type="button" class="btn btn-primary btn-submit-tort btn-xs">侵权</button>' +
     // '		  <button type="button" class="btn btn-primary btn-submit-normal btn-xs">正常</button>' +
+    '		  <button type="button" class="btn btn-danger btn-selectClear btn-xs">清空下拉框</button>' +
     '		  <button type="button" class="btn btn-danger btn-logout btn-xs">退出</button>' +
     '	  </div>' +
     '	  <br>' +
