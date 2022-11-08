@@ -47,7 +47,8 @@
     "rules": {},
     "globals": {
       "debugger": true,
-      "$": true
+      "$": true,
+      "eventEmiter": true
     }
   },
   "browserslist": [

@@ -1,4 +1,6 @@
+const jqueryScrollInit = require('@/utils/jquery.scroll')
 const pluginRegister = require('@/platform/index')
 const App = pluginRegister()
+jqueryScrollInit()
 App.render()
 App.pageFn()
