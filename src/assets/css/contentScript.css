@@ -83,3 +83,11 @@ html {
   background: #f0ad4e;
 }
 /* 搜索页面样式结束 */
+/* 个人中心页面样式开始 */
+.user-photo-list .video-card-main .img-check {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+}
+/* 个人中心页面样式结束 */

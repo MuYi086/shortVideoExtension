@@ -100,6 +100,10 @@ const pageProfile = {
     for (let m = 0; m < srcDomArr.length; m++) {
       let photo = {}
       const sda = srcDomArr[m]
+      // 添加多选框
+      if ($(sda).parents('.video-card-main').find('.img-check').length <= 0) {
+        $(sda).parents('.video-card-main').append('<input class="img-check" type="checkbox">')
+      }
       // 如果已经添加跳转按钮，跳过
       if ($(sda).parents('.video-card').find('.video-info-content').find('.to-h5').length > 0) {
         continue
