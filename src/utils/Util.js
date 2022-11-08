@@ -231,6 +231,11 @@ function randomUniqueKey () {
   return `${timestamp}-${randomNum}`
 }
 
+// 刷新
+function refresh () {
+   location.reload()
+}
+
 const Util = {
   addZero,
   newTimeStamp,
@@ -252,7 +257,8 @@ const Util = {
   getWindowHeightWidth,
   domWatch,
   dealKuaiShouImgSrc,
-  randomUniqueKey
+  randomUniqueKey,
+  refresh
 }
 
 module.exports = Util

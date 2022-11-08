@@ -1,8 +1,10 @@
-const renderSelect = require('./renderSelect')
+// const renderSelect = require('./renderSelect')
+const renderEditSelect = require('./renderEditSelect')
 const renderPreview = async function () {
-  const renderSelectHtml = await renderSelect()
+  // const renderSelectHtml = await renderSelect()
+  const renderEditSelectHtml = await renderEditSelect()
   const renderPreviewHtml = '<div id="previewWrap">' +
-    renderSelectHtml +
+    renderEditSelectHtml +
     '	  <br>' +
     '	  <br>' +
     '	  <div id="btn-wrapper" class="btn-group">' +

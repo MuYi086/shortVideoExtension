@@ -1,9 +1,8 @@
-html {
-  font-size: 12px !important;
-}
+html { font-size: 12px !important; }
 /* 插件样式开始 */
 #monitor {
   position: fixed;
+  font-size: 12px;
   width: 250px;
   height: 440px;
   background: #dedede;
@@ -16,14 +15,18 @@ html {
 #previewWrap {
   display: none;
 }
-#monitor .login-wrap .form-wrap {
+#monitor .login-wrap .form-wrap { 
   padding: 10px;
 }
+#work-add{width: 216px;position: relative;}
+#work-add textarea {width: 216px;height:50px;box-sizing:border-box;}
+#work-add .btn-workAdd {position: absolute;bottom: 8px;right: 2px;}
+#work-add,
+#work-select {display: none;}
 #btn-wrapper,
 #btn-wrapper .btn-login {
   width: 100%;
 }
-
 #btn-wrapper .btn {
   border-radius: 4px;
 }
@@ -36,7 +39,6 @@ html {
   position: fixed;
   bottom: 40px;
   right: 40px;
-  /* width: 20%; */
 }
 .preview .line {
   font-size: 12px;

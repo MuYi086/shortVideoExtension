@@ -6,7 +6,7 @@ const ChromeStorage = {
         if (error) {
           reject(error.message)
         }
-        resolve(data[key])
+        resolve(data[key] || '')
       })
     })
   },
