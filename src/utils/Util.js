@@ -224,6 +224,13 @@ function dealKuaiShouImgSrc (src) {
   return src2
 }
 
+// 以时间戳和随机数生成唯一id
+function randomUniqueKey () {
+  const timestamp = newTimeStamp()
+  const randomNum = Math.ceil(Math.random() * 100000)
+  return `${timestamp}-${randomNum}`
+}
+
 const Util = {
   addZero,
   newTimeStamp,
@@ -244,7 +251,8 @@ const Util = {
   kuaiShouCaptionDeal,
   getWindowHeightWidth,
   domWatch,
-  dealKuaiShouImgSrc
+  dealKuaiShouImgSrc,
+  randomUniqueKey
 }
 
 module.exports = Util
