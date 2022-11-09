@@ -27,14 +27,14 @@ const pageProfile = {
     // 监听videoContainer
     setTimeout(that.watchVideoContainer.bind(that), 1500)
     // 防止给页面过滤数据时页面还未渲染完成，加个延时
-    setTimeout(that.constructJumpUrl.bind(that), 1500)
+    setTimeout(that.addFeedsList.bind(that), 1500)
   },
   reset () {
     this.count = 0
     this.feedsList = []
     this.pcursor = ''
   },
-  constructJumpUrl (isAddSearchPcursor = false) {
+  addFeedsList (isAddSearchPcursor = false) {
     const that = this
     that.count += 1
     const queryObj = Util.getQuery(location.search)
@@ -82,7 +82,7 @@ const pageProfile = {
     const that = this
     Util.domWatch(document.querySelector('.user-photo-list'), function () {
       if (that.count >= 1) {
-        that.constructJumpUrl(true)
+        that.addFeedsList(true)
       }
     })
   },
@@ -97,18 +97,22 @@ const pageProfile = {
         if (!li.akKey) li.akKey = uniqueKey
         if (li.src.includes('upic')) return li
       }))
-      that.addJumpBtn(srcDomArr)
-    }, 1000)
+      const ablePhotoArr = that.addJumpBtn(srcDomArr)
+      that.getUrlCheckList(ablePhotoArr).then(urlCheckList => {
+        that.addVerifyBtn(urlCheckList, srcDomArr)
+      })
+    }, 500)
   },
   addJumpBtn (srcDomArr) {
+    const ablePhotoArr = []
     // 比对feedslist中已有的数据,找出封面图所在的photo信息
     for (let m = 0; m < srcDomArr.length; m++) {
       let photo = {}
       const sda = srcDomArr[m]
       // 添加多选框
-      if ($(sda).parents('.video-card-main').find('.img-check').length <= 0) {
-        $(sda).parents('.video-card-main').append(`<input class="img-check check-${m}" type="checkbox">`)
-      }
+      // if ($(sda).parents('.video-card-main').find('.img-check').length <= 0) {
+      //   $(sda).parents('.video-card-main').append(`<input class="img-check check-${m}" type="checkbox">`)
+      // }
       // 如果已经添加跳转按钮，跳过
       if ($(sda).parents('.video-card').find('.video-info-content').find('.to-h5').length > 0) {
         continue
@@ -117,6 +121,7 @@ const pageProfile = {
         const fdl = this.feedsList[n]
         if (Util.dealKuaiShouImgSrc(sda.src) === Util.dealKuaiShouImgSrc(fdl.coverUrl)) {
           photo = fdl
+          ablePhotoArr.push(fdl)
           $(sda).attr('data-fdl', JSON.stringify(fdl))
           break
         }
@@ -126,21 +131,50 @@ const pageProfile = {
         $(sda).parents('.video-card').find('.video-info-content').prepend(insertDom)
       }
     }
-    console.log(srcDomArr)
+    return ablePhotoArr
   },
-  addVerifyBtn (srcDomArr) {
-    const that = this
-    const params = {
-      data: srcDomArr.map(li => { return li.pcHref })
-    }
-    Api.monitorWorkResultAuditUrlCollectList(params).then(res => {
-      if (res.data && res.data.data) {
-        console.log(res.data.data)
-      } else {
-        btnAlert('danger', res.data.msg)
+  addVerifyBtn (urlCheckList, srcDomArr) {
+    // 遍历srcDomArr,给未有审核和收藏状态的图集添加状态
+    for (let m = 0; m < srcDomArr.length; m++) {
+      const sda = srcDomArr[m]
+      // 如果已经添加审核按钮，跳过
+      if ($(sda).parents('.video-card').find('.video-info-content').find('.to-verify').length > 0) {
+        continue
       }
-    }).catch(err => {
-      console.log(err)
+      const fdlStr = sda.dataset['fdl']
+      const { pcHref } = JSON.parse(fdlStr)
+      let verifyDom = ''
+      for (let n = 0; n < urlCheckList.length; n++) {
+        const ucl = urlCheckList[n]
+        if (ucl.url === pcHref) {
+          verifyDom = `<span class="to-verify ${ucl.check ? 'verifyed' : ''}">${ucl.check ? '已审核' : '未审核'}</span>`
+          break
+        }
+      }
+      $(sda).parents('.video-card').find('.video-info-content .like-icon').before(verifyDom)
+    }
+  },
+  getUrlCheckList (ablePhotoArr) {
+    const that = this
+    const pathnameArr = location.pathname.split('/')
+    const author = pathnameArr[pathnameArr.length - 1]
+    return new Promise((resolve, reject) => {
+      const params = {
+        author: author,
+        urlList: ablePhotoArr.map(li => { 
+          return li.pcHref
+         })
+      }
+      Api.monitorWorkResultAuditUrlCheck(params).then(res => {
+        if (res.data && res.data.data) {
+          resolve(res.data.data)
+        } else {
+          btnAlert('danger', res.data.msg)
+          resolve([])
+        }
+      }).catch(err => {
+        reject(err)
+      })
     })
   },
   constructCollectArr () {

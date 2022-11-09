@@ -21,7 +21,7 @@ const Api = {
       }).catch(err => {
         reject(err)
       })
-    }) 
+    })
   },
   // 监测后台-插件查询该用户下收藏未审核列表
   monitorWorkResultAuditUrlCollectList: (params) => {

@@ -21,9 +21,9 @@ const render = async function () {
     // btnFn中select结构体是动态生成的
     Util.checkLogin().then(res => {
       if (res) {
-        $('#loginWrap').show()
-      } else {
         $('#previewWrap').show()
+      } else {
+        $('#loginWrap').show()
       }
       btnFnInit()
     })
