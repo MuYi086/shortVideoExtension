@@ -1,7 +1,6 @@
 <template>
   <div class="yl-container">
-    收藏列表
-    <h3></h3>
+    <h3>收藏列表</h3>
     <el-table :data="datalist" ref="multipleTable" stripe border>
         <el-table-column label="IP名称" prop="name" ></el-table-column>
         <el-table-column label="平台" prop="platform" ></el-table-column>
@@ -37,7 +36,6 @@ export default {
   beforeMount () {},
   mounted () {
     const that = this
-    console.log(this.Util, this.Config, this.ChromeStorage, this.GlobalApi)
     const params = {
       source: 1, // 来源表 0监测表；1 插件
       auditStatus: 0 // 审核状态:0未审核；1审核侵权；2不侵权;3审核中

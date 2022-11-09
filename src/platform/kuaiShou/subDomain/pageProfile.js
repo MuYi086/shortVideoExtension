@@ -96,7 +96,7 @@ const pageProfile = {
       const durationStr = Math.floor(duration / 1000)
       const captionStr = Util.kuaiShouCaptionDeal(caption)
       const publishDate = Util.formatDate(new Date(timestamp), 'yyyy-MM-dd hh:mm:ss')
-      const authorLink = decodeURI(`https://www.kuaishou.com/profile/${id}`)
+      const authorLink = decodeURI(`https://www.kuaishou.com/profile/${author.id}`)
       newFeeds.push({
         timeSpan: durationStr,
         title: captionStr,
