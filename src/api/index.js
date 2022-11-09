@@ -30,6 +30,16 @@ const GlobalApi = {
         reject(err)
       })
     }) 
+  },
+  // 监测后台-插件查询该用户下收藏未审核列表
+  monitorWorkResultAuditUrlCollectList: (params) => {
+    return new Promise((resolve, reject) => {
+      axios.post(`${Config.API_URL}monitor/workResultAudit/urlCollectList`, params).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    }) 
   }
 }
 module.exports = GlobalApi
