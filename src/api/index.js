@@ -11,16 +11,16 @@ const GlobalApi = {
       })
     })
   },
-  // 监测后台-获取插件项目列表
-  monitorProjectWorkPlug: (params) => {
-    return new Promise((resolve, reject) => {
-      axios.get(`${Config.API_URL}monitor/projectWork/plug`, params).then(res => {
-        resolve(res)
-      }).catch(err => {
-        reject(err)
-      })
-    }) 
-  },
+  // 监测后台-获取插件项目列表(已废弃)
+  // monitorProjectWorkPlug: (params) => {
+  //   return new Promise((resolve, reject) => {
+  //     axios.get(`${Config.API_URL}monitor/projectWork/plug`, params).then(res => {
+  //       resolve(res)
+  //     }).catch(err => {
+  //       reject(err)
+  //     })
+  //   }) 
+  // },
   // 监测后台-新增插件作品导入
   monitorWorkResultAuditPlug: (params) => { 
     return new Promise((resolve, reject) => {

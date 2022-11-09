@@ -16,17 +16,17 @@ const Config = {
   API_URL,
   windowWH,
   wholeSiteList: [ // 网站列表
-  { url: 'https://*.ixigua.com/*', thumb: 'yg365', name: '西瓜视频' },
-  { url: 'https://*.bilibili.com/*', thumb: 'bilibiliVideo', name: '哔哩哔哩' },
-  { url: 'https://v.qq.com/*', thumb: 'tencentVideo', name: '腾讯视频' },
-  { url: 'https://v.youku.com/*', thumb: 'youkuVideo', name: '优酷视频' },
-    { url: 'https://*.douyin.com/*', thumb: 'douyinVideo', name: '抖音短视频' },
-    { url: 'https://weibo.com/*', thumb: 'weiboVideo', name: '微博视频' },
-    { url: 'https://*.kuaishou.com/*', thumb: 'kuaishouVideo', name: '快手' },
-    { url: 'https://*.gifshow.com/*', thumb: 'gifshow', name: '快手H5' },
-    { url: 'https://xiaohongshu.com/*', thumb: 'xiaohongshuVideo', name: '小红书' },
-    { url: 'https://www.mgtv.com/*', thumb: 'mgtvVideo', name: '芒果tv' },
-    { url: 'https://www.toutiao.com/*', thumb: 'toutiaoVideo', name: '今日头条' }
+    { url: 'https://*.ixigua.com/*', thumb: 'ixigua', ename: 'yg365', name: '西瓜视频' },
+    { url: 'https://*.bilibili.com/*', thumb: 'bilibili', ename: 'bilibiliVideo', name: '哔哩哔哩' },
+    { url: 'https://v.qq.com/*', thumb: 'tencent', ename: 'tencentVideo', name: '腾讯视频' },
+    { url: 'https://v.youku.com/*', thumb: 'youku', ename: 'youkuVideo', name: '优酷视频' },
+    { url: 'https://*.douyin.com/*', thumb: 'douyin', ename: 'douyinVideo', name: '抖音短视频' },
+    { url: 'https://weibo.com/*', thumb: 'weibo', ename: 'weiboVideo', name: '微博视频' },
+    { url: 'https://*.kuaishou.com/*', thumb: 'kuaishou', ename: 'kuaishouVideo', name: '快手' },
+    { url: 'https://*.gifshow.com/*', thumb: 'gifshow', ename: 'gifshow', name: '快手H5' },
+    { url: 'https://xiaohongshu.com/*', thumb: 'xiaohongshu', ename: 'xiaohongshuVideo', name: '小红书' },
+    { url: 'https://www.mgtv.com/*', thumb: 'mgtv', ename: 'mgtvVideo', name: '芒果tv' },
+    { url: 'https://www.toutiao.com/*', thumb: 'toutiao', ename: 'toutiaoVideo', name: '今日头条' }
     // { url: 'https://play.tudou.com/*', thumb: 'wxVideo', name: '微信视频号' },
   ]
 }

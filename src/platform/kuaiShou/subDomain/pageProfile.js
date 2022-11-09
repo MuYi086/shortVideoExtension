@@ -1,6 +1,7 @@
 /* eslint-disable */
 const Util = require('@/utils/Util')
 const Api = require('../api')
+const GlobalApi = require('@/api/index')
 const btnAlert = require('@/platform/btnFn/btnAlert')
 const pageProfile = {
   init: function () {
@@ -16,8 +17,27 @@ const pageProfile = {
     const collectHtml = `<div class="collect-wrap"><button type="button" class="btn btn-primary btn-collect btn-xs">批量收藏</button></div>`
     $('body').append(collectHtml)
     $('.collect-wrap .btn-collect').click(function () {
-      const arr = that.constructCollectArr()
-      console.log(arr)
+      const selectNameArr = $('#monitor .selectpicker').val()
+      if (selectNameArr.length <= 0) {
+        btnAlert('danger', '请于插件下拉框选择作品名称')
+        return false
+      }
+      const params = {
+        name: selectNameArr.join(','),
+        platform: Util.judgeWebType(),
+        auditStatus: 0, // 审核状态: 0未审核；1审核侵权；2不侵权;3审核中
+        source: 1, // 来源表: 0监测表；1 插件
+        plugList: that.constructCollectArr()
+      }
+      console.log(params)
+      GlobalApi.monitorWorkResultAuditPlug(params).then(res => {
+        if (res) {
+          console.log(res)
+          btnAlert('success', '收藏成功')
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     })
   },
   getData () {
@@ -56,7 +76,6 @@ const pageProfile = {
       const { visionProfilePhotoList } = res.data.data
       that.feedsList = [...that.feedsList, ...that.dealFeeds(visionProfilePhotoList.feeds)]
       that.pcursor = visionProfilePhotoList.pcursor
-      console.log(that.feedsList)
     }).catch(err => {
       console.log(err)
     })
@@ -65,16 +84,29 @@ const pageProfile = {
   dealFeeds (feeds) {
     const newFeeds = []
     for (let i = 0; i < feeds.length; i++) {
-      const { photo } = feeds[i]
+      const { author, photo } = feeds[i]
+      const { name } = author
+      const { id, caption, duration, timestamp, coverUrl } = photo
       const origin = 'https://m.gifshow.com'
       const pcOrigin = 'https://www.kuaishou.com'
-      const pathname = `/fw/photo/${photo.id}`
-      const pcPathname = `/short-video/${photo.id}`
-      const href = `${origin}${pathname}`
+      const pathname = `/fw/photo/${id}`
+      const pcPathname = `/short-video/${id}`
+      const h5Href = `${origin}${pathname}`
       const pcHref = `${pcOrigin}${pcPathname}`
-      const durationStr = Math.floor(photo.duration / 1000)
-      const caption = Util.kuaiShouCaptionDeal(photo.caption)
-      newFeeds.push({ href, pcHref: pcHref, caption: caption, coverUrl: photo.coverUrl, duration: durationStr })
+      const durationStr = Math.floor(duration / 1000)
+      const captionStr = Util.kuaiShouCaptionDeal(caption)
+      const publishDate = Util.formatDate(new Date(timestamp), 'yyyy-MM-dd hh:mm:ss')
+      const authorLink = decodeURI(`https://www.kuaishou.com/profile/${id}`)
+      newFeeds.push({
+        timeSpan: durationStr,
+        title: captionStr,
+        url: pcHref,
+        h5Href: h5Href,
+        publishDate: publishDate,
+        authorLink: authorLink,
+        author: name,
+        coverUrl: coverUrl
+      })
     }
     return newFeeds
   },
@@ -98,9 +130,11 @@ const pageProfile = {
         if (li.src.includes('upic')) return li
       }))
       const ablePhotoArr = that.addJumpBtn(srcDomArr)
-      that.getUrlCheckList(ablePhotoArr).then(urlCheckList => {
-        that.addVerifyBtn(urlCheckList, srcDomArr)
-      })
+      if (ablePhotoArr.length > 0) {
+        that.getUrlCheckList(ablePhotoArr).then(urlCheckList => {
+          that.addVerifyBtn(urlCheckList, srcDomArr)
+        })
+      }
     }, 500)
   },
   addJumpBtn (srcDomArr) {
@@ -109,10 +143,6 @@ const pageProfile = {
     for (let m = 0; m < srcDomArr.length; m++) {
       let photo = {}
       const sda = srcDomArr[m]
-      // 添加多选框
-      // if ($(sda).parents('.video-card-main').find('.img-check').length <= 0) {
-      //   $(sda).parents('.video-card-main').append(`<input class="img-check check-${m}" type="checkbox">`)
-      // }
       // 如果已经添加跳转按钮，跳过
       if ($(sda).parents('.video-card').find('.video-info-content').find('.to-h5').length > 0) {
         continue
@@ -126,8 +156,8 @@ const pageProfile = {
           break
         }
       }
-      if (photo.href) {
-        const insertDom = `<a href="${photo.href}" data-pchref="${photo.pcHref}" class="to-h5" target="_blank">跳转</a>`
+      if (photo.url) {
+        const insertDom = `<a href="${photo.h5Href}" data-pchref="${photo.url}" class="to-h5" target="_blank">跳转</a>`
         $(sda).parents('.video-card').find('.video-info-content').prepend(insertDom)
       }
     }
@@ -141,13 +171,20 @@ const pageProfile = {
       if ($(sda).parents('.video-card').find('.video-info-content').find('.to-verify').length > 0) {
         continue
       }
+      // 添加多选框
+      if ($(sda).parents('.video-card-main').find('.img-check').length <= 0) {
+        $(sda).parents('.video-card-main').append(`<input class="img-check check-${m}" type="checkbox">`)
+      }
       const fdlStr = sda.dataset['fdl']
-      const { pcHref } = JSON.parse(fdlStr)
+      const { url } = JSON.parse(fdlStr)
       let verifyDom = ''
       for (let n = 0; n < urlCheckList.length; n++) {
         const ucl = urlCheckList[n]
-        if (ucl.url === pcHref) {
+        if (ucl.url === url) {
+          // 构造审核btn
           verifyDom = `<span class="to-verify ${ucl.check ? 'verifyed' : ''}">${ucl.check ? '已审核' : '未审核'}</span>`
+          // 勾选框回显
+          $(sda).parents('.video-card-main').find(`.img-check.check-${m}`).prop('checked', ucl.collect)
           break
         }
       }
@@ -156,13 +193,13 @@ const pageProfile = {
   },
   getUrlCheckList (ablePhotoArr) {
     const that = this
-    const pathnameArr = location.pathname.split('/')
-    const author = pathnameArr[pathnameArr.length - 1]
+    // const pathnameArr = location.pathname.split('/')
+    // const author = pathnameArr[pathnameArr.length - 1]
     return new Promise((resolve, reject) => {
       const params = {
-        author: author,
+        author: $('.user-detail .user-name span').text().trim(),
         urlList: ablePhotoArr.map(li => { 
-          return li.pcHref
+          return li.url
          })
       }
       Api.monitorWorkResultAuditUrlCheck(params).then(res => {
@@ -183,8 +220,9 @@ const pageProfile = {
       if ($(item).find('.img-check').prop('checked')) {
         const fdlStr = $(item).find('.poster-img')[0].dataset['fdl']
         if (fdlStr) {
-          const { pcHref, duration, caption } = JSON.parse(fdlStr)
-          arr.push({ caption, duration, pcHref })
+          const { timeSpan, title, url, publishDate, authorLink, author } = JSON.parse(fdlStr)
+          const authorId = ''
+          arr.push({ timeSpan, title, url, publishDate, authorLink, author, authorId })
         }
       }
     })
