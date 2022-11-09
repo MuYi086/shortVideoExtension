@@ -157,7 +157,7 @@ const pageProfile = {
         }
       }
       if (photo.url) {
-        const insertDom = `<a href="${photo.h5Href}" data-pchref="${photo.url}" class="to-h5" target="_blank">跳转</a>`
+        const insertDom = `<button data-href="${photo.h5Href}" data-pchref="${photo.url}" type="button" class="to-h5 btn btn-primary btn-jump btn-xs">跳转</button>`
         $(sda).parents('.video-card').find('.video-info-content').prepend(insertDom)
       }
     }
@@ -182,7 +182,11 @@ const pageProfile = {
         const ucl = urlCheckList[n]
         if (ucl.url === url) {
           // 构造审核btn
-          verifyDom = `<span class="to-verify ${ucl.check ? 'verifyed' : ''}">${ucl.check ? '已审核' : '未审核'}</span>`
+          if (ucl.check) {
+            verifyDom = `<span class="to-verify verifyed">已审核</span><span class="to-verify not-verifyed disNone">未审核</span>`
+          } else {
+            verifyDom = `<span class="to-verify verifyed disNone">已审核</span><span class="to-verify not-verifyed">未审核</span>`
+          }
           // 勾选框回显
           $(sda).parents('.video-card-main').find(`.img-check.check-${m}`).prop('checked', ucl.collect)
           break
@@ -193,8 +197,6 @@ const pageProfile = {
   },
   getUrlCheckList (ablePhotoArr) {
     const that = this
-    // const pathnameArr = location.pathname.split('/')
-    // const author = pathnameArr[pathnameArr.length - 1]
     return new Promise((resolve, reject) => {
       const params = {
         author: $('.user-detail .user-name span').text().trim(),
@@ -227,6 +229,12 @@ const pageProfile = {
       }
     })
     return arr
+  },
+  createJumpBtnEvent () {
+    $('span.to-h5').click(function () {
+      console.log('点击了跳转')
+      console.log($(this))
+    })
   }
 }
 eventEmitter.on('kuaishou-profile', pageProfile.scrollEnd.bind(pageProfile))

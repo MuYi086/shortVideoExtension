@@ -75,8 +75,8 @@ function judgeExcelNull (e) {
 }
 
 // 判断当前网站类型
-function judgeWebType () {
-  const { hostname } = window.location
+function judgeWebType (url) {
+  const hostname = url || window.location.hostname
   let siteName = ''
   for (let i = 0; i < Config.wholeSiteList.length; i++) {
     const li = Config.wholeSiteList[i]

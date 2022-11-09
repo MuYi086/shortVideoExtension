@@ -95,7 +95,7 @@ html {
 }
 /* 插件样式结束 */
 /* 搜索页面样式开始 */
-.video-info-content a.to-h5 {
+.video-info-content .to-h5 {
   align-items: flex-end;
   padding: 2px;
   color: #fff !important;
@@ -106,6 +106,7 @@ html {
   color: #fff;
   padding: 2px;
   margin-left: 10px;
+  cursor: not-allowed;
 }
 .video-info-content .to-verify.verifyed {
   background: #f0ad4e;
