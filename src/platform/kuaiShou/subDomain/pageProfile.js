@@ -133,6 +133,7 @@ const pageProfile = {
       if (ablePhotoArr.length > 0) {
         that.getUrlCheckList(ablePhotoArr).then(urlCheckList => {
           that.addVerifyBtn(urlCheckList, srcDomArr)
+          that.createJumpBtnEvent()
         })
       }
     }, 500)
@@ -231,9 +232,32 @@ const pageProfile = {
     return arr
   },
   createJumpBtnEvent () {
-    $('span.to-h5').click(function () {
-      console.log('点击了跳转')
-      console.log($(this))
+    $('.video-info-content .to-h5').click(function () {
+      const selectNameArr = $('#monitor .selectpicker').val()
+      if (selectNameArr.length <= 0) {
+        btnAlert('danger', '请于插件下拉框选择作品名称')
+        return false
+      }
+      const fdlStr = $(this).parents('.video-card').find('.poster-img')[0].dataset['fdl']
+      if (fdlStr) {
+        const { timeSpan, title, url, publishDate, authorLink, author, h5Href } = JSON.parse(fdlStr)
+        const authorId = ''
+        const params = {
+          name: selectNameArr.join(','),
+          platform: Util.judgeWebType(),
+          auditStatus: 2, // 审核状态: 0未审核；1审核侵权；2不侵权;3审核中
+          source: 1, // 来源表: 0监测表；1 插件
+          plugList: [{ timeSpan, title, url, publishDate, authorLink, author }]
+        }
+        GlobalApi.monitorWorkResultAuditPlug(params).then(res => {
+          if (res) {
+            $(this).parents('.video-card').find('.to-verify.verifyed').show().siblings('.to-verify.not-verifyed').hide()
+            Util.windowOpen(h5Href)
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      }
     })
   }
 }

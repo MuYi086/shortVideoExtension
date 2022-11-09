@@ -233,7 +233,13 @@ function randomUniqueKey () {
 
 // 刷新
 function refresh () {
-   location.reload()
+  location.reload()
+}
+
+// 窗口打开
+function windowOpen (url = './', name = '_blank') {
+  if (!url) { return false }
+  window.open(url, name)
 }
 
 const Util = {
@@ -258,7 +264,8 @@ const Util = {
   domWatch,
   dealKuaiShouImgSrc,
   randomUniqueKey,
-  refresh
+  refresh,
+  windowOpen
 }
 
 module.exports = Util
