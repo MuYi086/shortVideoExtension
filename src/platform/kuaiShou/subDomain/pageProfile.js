@@ -30,11 +30,23 @@ const pageProfile = {
       console.log(params)
       GlobalApi.monitorWorkResultAuditPlug(params).then(res => {
         if (res) {
-          console.log(res)
           btnAlert('success', '收藏成功')
         }
       }).catch(err => {
         console.log(err)
+      })
+    })
+  },
+  createNotTortBtn () {
+    const that = this
+    $('.video-card .not-tort').click(function () {
+      const selectNameArr = selectpickerCheck()
+      if (!selectNameArr) return false
+      const currentDom = $(this)
+      that.setVideoNotTort(currentDom).then(h5Href => {
+        btnAlert('success', '已审核')
+        $(this).parents('.video-card').find('.img-check').attr('disabled', true)
+        $(this).hide()
       })
     })
   },
@@ -131,6 +143,7 @@ const pageProfile = {
       if (ablePhotoArr.length > 0) {
         that.getUrlCheckList(ablePhotoArr).then(urlCheckList => {
           that.addVerifyBtn(urlCheckList, srcDomArr)
+          that.createNotTortBtn()
           that.createJumpBtnEvent()
         })
       }
@@ -180,9 +193,9 @@ const pageProfile = {
           btnCheck = ucl.check
           // 构造审核btn
           if (ucl.check) {
-            verifyDom = `<span class="to-verify verifyed">已审核</span><span class="to-verify not-verifyed disNone">未审核</span>`
+            verifyDom = `<button type="button" class="not-tort btn btn-success btn-xs disNone">不侵权</button><span class="to-verify verifyed">已审核</span><span class="to-verify not-verifyed disNone">未审核</span>`
           } else {
-            verifyDom = `<span class="to-verify verifyed disNone">已审核</span><span class="to-verify not-verifyed">未审核</span>`
+            verifyDom = `<button type="button" class="not-tort btn btn-success btn-xs">不侵权</button><span class="to-verify verifyed disNone">已审核</span><span class="to-verify not-verifyed">未审核</span>`
           }
           // 勾选框回显
           $(sda).parents('.video-card-main').find(`.img-check.check-${m}`).prop('checked', ucl.collect)

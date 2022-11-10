@@ -15,6 +15,7 @@ html {
   padding: 10px;
   right: 10px;
   overflow: scroll;
+  z-index: 10000;
 }
 #loginWrap,
 #previewWrap {
@@ -122,8 +123,13 @@ html {
   left: 0;
   z-index: 200;
 }
-.user-photo-list .video-info-content .to-verify {
+.user-photo-list .video-info-content .to-verify,
+.user-photo-list .video-info-content .not-tort  {
   margin-left: 10px;
+}
+.user-photo-list .video-info-content {
+  position: absolute;
+  z-index: 100;
 }
 .collect-wrap {
   position: fixed;
