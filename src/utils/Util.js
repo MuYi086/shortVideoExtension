@@ -242,13 +242,13 @@ function windowOpen (url = './', name = '_blank') {
   window.open(url, name)
 }
 
-function findSelectpickerProjectId (name) {
+function findSelectpickerProjectId (name, arr = window.SELECTPICKERPROJECTLIST) {
   if (!name) {
     name = $('#monitor .selectpicker-project').val()
   }
   let projectId = ''
-  for (let i = 0; i < window.SELECTPICKERPROJECTLIST.length; i++) {
-    const li = window.SELECTPICKERPROJECTLIST[i]
+  for (let i = 0; i < arr.length; i++) {
+    const li = arr[i]
     if (li.projectName === name) {
       projectId = li.id
       break

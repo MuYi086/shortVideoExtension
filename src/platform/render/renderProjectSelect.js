@@ -1,10 +1,12 @@
-// const ChromeStorage = require('@/utils/ChromeStorage')
+const ChromeStorage = require('@/utils/ChromeStorage')
 const GlobalApi = require('@/api')
 const renderProjectSelect = async function () {
   const projectRes = await GlobalApi.monitorProjectList()
-  window.SELECTPICKERPROJECTLIST = projectRes.data.data || []
-  const selectHtml = constructSelectList(projectRes.data.data || [])
-  if (projectRes.data.data) {
+  const list = projectRes.data.data || []
+  window.SELECTPICKERPROJECTLIST = list
+  ChromeStorage.set('selectpicker-projectList', list)
+  const selectHtml = constructSelectList(list)
+  if (list) {
     const editSelectHtml1 = `
       <div id="project-select">${selectHtml}</div>
     `
