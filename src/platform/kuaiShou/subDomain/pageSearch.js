@@ -162,9 +162,11 @@ const pageSearch = {
         continue
       }
       const fdlStr = sda.dataset['fdl']
+      let fdlObj = null
       let url = ''
       if (fdlStr) {
-        url = (JSON.parse(fdlStr)).url
+        fdlObj = JSON.parse(fdlStr)
+        url = fdlObj.url
       }
       let verifyDom = ''
       for (let n = 0; n < urlCheckList.length; n++) {
@@ -181,6 +183,10 @@ const pageSearch = {
       }
       // 追加审核按钮
       $(sda).parents('.video-card').find('.video-info-content .like-icon').before(verifyDom)
+      // 追加时长过短提示
+      if (fdlObj && (fdlObj.timeSpan < 90)) {
+        this.createShortTimeTip($(sda))
+      }
     }
   },
   getUrlCheckList (ablePhotoArr) {
@@ -241,6 +247,12 @@ const pageSearch = {
   unbindBtnEventAfterScroll () {
     $('.video-info-content .to-h5').unbind()
     $('.video-info-content .not-tort').unbind()
+  },
+  createShortTimeTip (currentDom) {
+    if (currentDom.siblings('.short-time').length <= 0) {
+      const shortTimeHtml = `<div class="short-time">时长过短</div>`
+      currentDom.after(shortTimeHtml)
+    }
   }
 }
 eventEmitter.on('kuaishou-search', pageSearch.scrollEnd.bind(pageSearch))

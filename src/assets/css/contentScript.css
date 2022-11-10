@@ -137,4 +137,17 @@ html {
   bottom: 40px;
   z-index: 10000;
 }
+.poster .short-time {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  background: rgba(0, 0, 0, .5);
+  color: #d9534f;
+  text-align: center;
+  font-size: 30px;
+  z-index: 999;
+}
 /* 个人中心页面样式结束 */

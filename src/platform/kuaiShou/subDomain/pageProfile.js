@@ -134,7 +134,6 @@ const pageProfile = {
   },
   scrollEnd () {
     const that = this
-    console.log('滚动结束了')
     setTimeout(() => {
       const posterDomArr = Array.from(document.querySelectorAll('.poster-img'))
       // 找出有真实src的图集
@@ -189,9 +188,11 @@ const pageProfile = {
         continue
       }
       const fdlStr = sda.dataset['fdl']
+      let fdlObj = null
       let url = ''
       if (fdlStr) {
-        url = (JSON.parse(fdlStr)).url
+        fdlObj = JSON.parse(fdlStr)
+        url = fdlObj.url
       }
       let verifyDom = ''
       let btnCheck = false
@@ -221,6 +222,10 @@ const pageProfile = {
           inputHtml = `<input class="img-check check-${m}" type="checkbox">`
         }
         $(sda).parents('.video-card-main').append(inputHtml)
+      }
+      // 追加时长过短提示
+      if (fdlObj && (fdlObj.timeSpan < 90)) {
+        this.createShortTimeTip($(sda))
       }
     }
   },
@@ -297,6 +302,12 @@ const pageProfile = {
   unbindBtnEventAfterScroll () {
     $('.video-info-content .to-h5').unbind()
     $('.video-info-content .not-tort').unbind()
+  },
+  createShortTimeTip (currentDom) {
+    if (currentDom.siblings('.short-time').length <= 0) {
+      const shortTimeHtml = `<div class="short-time">时长过短</div>`
+      currentDom.after(shortTimeHtml)
+    }
   }
 }
 eventEmitter.on('kuaishou-profile', pageProfile.scrollEnd.bind(pageProfile))
