@@ -233,7 +233,7 @@ const pageProfile = {
       const params = {
         projectId: Util.findSelectpickerProjectId(),
         author: $('.user-detail .user-name span').text().trim(),
-        urlList: ablePhotoArr.map(li => { 
+        plugList: ablePhotoArr.map(li => { 
           return { url: li.url, title: li.title, author: li.author, timeSpan: li.timeSpan }
          })
       }
