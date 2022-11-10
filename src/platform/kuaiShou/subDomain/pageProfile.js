@@ -20,14 +20,18 @@ const pageProfile = {
     $('.collect-wrap .btn-collect').click(function () {
       const selectNameArr = selectpickerCheck()
       if (!selectNameArr) return false
+      const plugList = that.constructCollectArr()
+      if (plugList.length === 0) {
+        btnAlert('danger', '收藏列表不能为空')
+        return false
+      }
       const params = {
         name: selectNameArr.join(','),
         platform: Util.judgeWebType(),
         auditStatus: 0, // 审核状态: 0未审核；1审核侵权；2不侵权;3审核中
         source: 1, // 来源表: 0监测表；1 插件
-        plugList: that.constructCollectArr()
+        plugList: plugList
       }
-      console.log(params)
       GlobalApi.monitorWorkResultAuditPlug(params).then(res => {
         if (res) {
           btnAlert('success', '收藏成功')

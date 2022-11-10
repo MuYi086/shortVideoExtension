@@ -25,7 +25,7 @@ function constructParams () {
   const params = {
     // id: '', // 作品唯一标识
     name: selectNameArr.join(','), // 作品名称
-    platform: Util.judgeWebType() === '快手H5' ? '快手' : Util.judgeWebType(), // 平台名称
+    platform: Util.judgeWebType() === 'gifshow' ? 'kuaishouVideo' : Util.judgeWebType(), // 平台名称
     source: 1, // 0:监测表;1:插件
     plugList: [
       {
