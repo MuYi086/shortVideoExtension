@@ -4,6 +4,7 @@ const btnSubmit = require('./btnSubmit')
 const btnWorkAdd = require('./btnWorkAdd')
 const btnSelectClear = require('./btnSelectClear')
 const btnCollectList = require('./btnCollectList')
+const btnSelect = require('./btnSelect')
 const btnFnInit = function () {
   btnLogin()
   btnLogout()
@@ -11,5 +12,6 @@ const btnFnInit = function () {
   btnWorkAdd()
   btnSelectClear()
   btnCollectList()
+  btnSelect()
 }
 module.exports = btnFnInit
