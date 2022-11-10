@@ -58,8 +58,6 @@ const pageProfile = {
     const that = this
     // 创建批量收藏按钮
     setTimeout(this.createCollectBtn.bind(that), 1500)
-    // 监听videoContainer
-    // setTimeout(that.watchVideoContainer.bind(that), 1500)
     // 防止给页面过滤数据时页面还未渲染完成，加个延时
     setTimeout(that.addFeedsList.bind(that), 1500)
   },
@@ -123,14 +121,6 @@ const pageProfile = {
       })
     }
     return newFeeds
-  },
-  watchVideoContainer () {
-    const that = this
-    Util.domWatch(document.querySelector('.user-photo-list'), function () {
-      if (that.count >= 1) {
-        that.addFeedsList(true)
-      }
-    })
   },
   scrollEnd () {
     const that = this
