@@ -40,6 +40,16 @@ const GlobalApi = {
         reject(err)
       })
     }) 
+  },
+  // 监测后台-查询监测项目列表
+  monitorProjectList: (params) => {
+    return new Promise((resolve, reject) => {
+      axios.get(`${Config.API_URL}monitor/project/list`, params).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    }) 
   }
 }
 module.exports = GlobalApi

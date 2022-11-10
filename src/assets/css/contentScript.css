@@ -111,6 +111,7 @@ html {
   padding: 2px;
   margin-left: 10px;
   cursor: not-allowed;
+  white-space: nowrap;
 }
 .video-info-content .to-verify.verifyed {
   background: #f0ad4e;

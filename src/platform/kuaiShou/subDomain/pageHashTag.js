@@ -3,7 +3,8 @@ const Util = require('@/utils/Util')
 const Api = require('../api')
 const GlobalApi = require('@/api/index')
 const btnAlert = require('@/platform/btnFn/btnAlert')
-const selectpickerCheck = require('@/platform/common/selectpickerCheck')
+const selectpickerCheckIp = require('@/platform/common/selectpickerCheckIp')
+const selectpickerCheckProject = require('@/platform/common/selectpickerCheckProject')
 const pageHashTag = {
   init: function () {
     this.count = 0
@@ -15,7 +16,7 @@ const pageHashTag = {
   createNotTortBtn () {
     const that = this
     $('.video-card .not-tort').click(function () {
-      const selectNameArr = selectpickerCheck()
+      const selectNameArr = selectpickerCheckIp()
       if (!selectNameArr) return false
       const currentDom = $(this)
       that.setVideoNotTort(currentDom).then(h5Href => {
@@ -96,6 +97,8 @@ const pageHashTag = {
   scrollEnd () {
     const that = this
     setTimeout(() => {
+      if (!selectpickerCheckProject()) return false
+      if (!selectpickerCheckIp()) return false
       const posterDomArr = Array.from(document.querySelectorAll('.poster-img'))
       // 判断当前img条数和feedList长度,大于20时可以请求下一页了
       if (posterDomArr.length - that.feedsList.length >= 20) {
@@ -212,7 +215,7 @@ const pageHashTag = {
   },
   setVideoNotTort (currentDom) {
     return new Promise((resolve, reject) => {
-      const selectNameArr = selectpickerCheck()
+      const selectNameArr = selectpickerCheckIp()
       if (!selectNameArr) return false
       const fdlStr = currentDom.parents('.video-card').find('.poster-img')[0].dataset['fdl']
       if (fdlStr) {

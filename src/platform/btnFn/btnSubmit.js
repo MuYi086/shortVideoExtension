@@ -1,17 +1,17 @@
 const GlobalApi = require('@/api')
 const Util = require('@/utils/Util')
 const btnAlert = require('@/platform/btnFn/btnAlert')
-const selectpickerCheck = require('@/platform/common/selectpickerCheck')
+const selectpickerCheckIp = require('@/platform/common/selectpickerCheckIp')
 function btnSubmit () {
   $('#btn-wrapper .btn-submit-tort').click(function () {
-    const selectNameArr = selectpickerCheck()
+    const selectNameArr = selectpickerCheckIp()
     if (!selectNameArr) return false
     const params = constructParams()
     params.auditStatus = 1
     excuteTortNormal(params)
   })
   $('#btn-wrapper .btn-submit-normal').click(function () {
-    const selectNameArr = selectpickerCheck()
+    const selectNameArr = selectpickerCheckIp()
     if (!selectNameArr) return false
     const params = constructParams()
     params.auditStatus = 2
@@ -19,7 +19,7 @@ function btnSubmit () {
   })
 }
 function constructParams () {
-  const selectNameArr = selectpickerCheck()
+  const selectNameArr = selectpickerCheckIp()
   if (!selectNameArr) return false
   const { userName, kwaiId, userLink, caption, videoUrl, durationStr, publishDate } = window.h5DetailData
   const params = {

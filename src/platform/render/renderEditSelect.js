@@ -23,7 +23,7 @@ const renderEditSelect = async function () {
   }
 }
 function constructSelectList (workList) {
-  const head = '<select class="selectpicker" data-live-search="true" multiple>'
+  const head = '<select class="selectpicker-ip" data-live-search="true" title="请选择IP" multiple>'
   const tail = '</select>'
   let content = ''
   for (let i = 0; i < workList.length; i++) {

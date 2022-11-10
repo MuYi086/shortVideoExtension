@@ -16,7 +16,8 @@ const render = async function () {
     $('body').append(renderAlertHtml)
     $('body').append(monitorWrap)
     const selectpickerCurrent = await ChromeStorage.get('selectpicker-current')
-    $('.selectpicker').selectpicker('val', selectpickerCurrent)
+    $('.selectpicker-project').selectpicker('val', '')
+    $('.selectpicker-ip').selectpicker('val', selectpickerCurrent)
     const btnFnInit = require('@/platform/btnFn')
     // btnFn中select结构体是动态生成的
     Util.checkLogin().then(res => {

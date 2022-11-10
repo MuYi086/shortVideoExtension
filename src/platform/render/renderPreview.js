@@ -1,7 +1,11 @@
 const renderEditSelect = require('./renderEditSelect')
+const renderProjectSelect = require('./renderProjectSelect')
 const renderPreview = async function () {
+  const renderProjectSelectHtml = await renderProjectSelect()
   const renderEditSelectHtml = await renderEditSelect()
   const renderPreviewHtml = '<div id="previewWrap">' +
+    renderProjectSelectHtml +
+    '	  <br>' +
     renderEditSelectHtml +
     '	  <br>' +
     '	  <br>' +
