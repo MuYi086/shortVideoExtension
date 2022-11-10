@@ -184,7 +184,10 @@ const pageProfile = {
         continue
       }
       const fdlStr = sda.dataset['fdl']
-      const { url } = JSON.parse(fdlStr)
+      let url = ''
+      if (fdlStr) {
+        url = (JSON.parse(fdlStr)).url
+      }
       let verifyDom = ''
       let btnCheck = false
       for (let n = 0; n < urlCheckList.length; n++) {
@@ -256,6 +259,7 @@ const pageProfile = {
     $('.video-info-content .to-h5').click(function () {
       const currentDom = $(this)
       that.setVideoNotTort(currentDom).then(h5Href => {
+        currentDom.siblings('.not-tort').hide()
         Util.windowOpen(h5Href)
       })
     })

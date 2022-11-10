@@ -2,7 +2,7 @@ const Util = require('@/utils/Util')
 const kuaiShouApp = require('./kuaiShou')
 const kuaiShouH5App = require('./kuaiShouH5')
 function pluginRegister () {
-  const siteName = Util.judgeWebType()
+  const siteName = Util.judgeWebType(location.hostname, 0)
   switch (siteName) {
     case '抖音':
       break

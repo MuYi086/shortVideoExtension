@@ -123,9 +123,9 @@ html {
   left: 0;
   z-index: 200;
 }
-.user-photo-list .video-info-content .to-verify,
-.user-photo-list .video-info-content .not-tort  {
-  margin-left: 10px;
+.video-info-content .to-verify,
+.video-info-content .not-tort  {
+  margin-left: 4px;
 }
 .user-photo-list .video-info-content {
   position: absolute;

@@ -75,13 +75,13 @@ function judgeExcelNull (e) {
 }
 
 // 判断当前网站类型
-function judgeWebType (url) {
+function judgeWebType (url, type = 1) {
   const hostname = url || window.location.hostname
   let siteName = ''
   for (let i = 0; i < Config.wholeSiteList.length; i++) {
     const li = Config.wholeSiteList[i]
     if (hostname.includes(li.thumb)) {
-      siteName = li.name
+      siteName = type ? li.ename : li.name
       break
     }
   }

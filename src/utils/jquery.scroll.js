@@ -1,5 +1,3 @@
-// import { eventEmitter } from './eventEmiter'
-// const eventEmiter = require('./common/eventEmiter')
 /* eslint-disable */
 function jqueryScrollInit () {
   $.fn.scrollEnd = function (callback, timeout) {          
@@ -18,6 +16,9 @@ function jqueryScrollInit () {
     switch (webDir) {
       case 'profile':
         eventEmitter.emit('kuaishou-profile', '')
+        break
+      case 'search':
+        eventEmitter.emit('kuaishou-search', '')
         break
       default:
         console.log('这是其他页面')
