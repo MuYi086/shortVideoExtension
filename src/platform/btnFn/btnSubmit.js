@@ -23,6 +23,7 @@ function constructParams () {
   if (!selectNameArr) return false
   const { userName, kwaiId, userLink, caption, videoUrl, durationStr, publishDate } = window.h5DetailData
   const params = {
+    projectId: Util.findSelectpickerProjectId(),
     // id: '', // 作品唯一标识
     name: selectNameArr.join(','), // 作品名称
     platform: Util.judgeWebType() === 'gifshow' ? 'kuaishouVideo' : Util.judgeWebType(), // 平台名称

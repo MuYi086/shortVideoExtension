@@ -187,6 +187,7 @@ const pageHashTag = {
     const that = this
     return new Promise((resolve, reject) => {
       const params = {
+        projectId: Util.findSelectpickerProjectId(),
         urlList: ablePhotoArr.map(li => {
           return { url: li.url, title: li.title, author: li.author, timeSpan: li.timeSpan }
         })
@@ -221,6 +222,7 @@ const pageHashTag = {
       if (fdlStr) {
         const { timeSpan, title, url, publishDate, authorLink, author, h5Href } = JSON.parse(fdlStr)
         const params = {
+          projectId: Util.findSelectpickerProjectId(),
           name: selectNameArr.join(','),
           platform: Util.judgeWebType(),
           auditStatus: 2, // 审核状态: 0未审核；1审核侵权；2不侵权;3审核中

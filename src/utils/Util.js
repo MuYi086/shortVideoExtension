@@ -242,6 +242,21 @@ function windowOpen (url = './', name = '_blank') {
   window.open(url, name)
 }
 
+function findSelectpickerProjectId (name) {
+  if (!name) {
+    name = $('#monitor .selectpicker-project').val()
+  }
+  let projectId = ''
+  for (let i = 0; i < window.SELECTPICKERPROJECTLIST.length; i++) {
+    const li = window.SELECTPICKERPROJECTLIST[i]
+    if (li.projectName === name) {
+      projectId = li.id
+      break
+    }
+  }
+  return projectId
+}
+
 const Util = {
   addZero,
   newTimeStamp,
@@ -265,7 +280,8 @@ const Util = {
   dealKuaiShouImgSrc,
   randomUniqueKey,
   refresh,
-  windowOpen
+  windowOpen,
+  findSelectpickerProjectId
 }
 
 module.exports = Util

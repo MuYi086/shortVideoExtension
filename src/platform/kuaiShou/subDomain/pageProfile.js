@@ -27,6 +27,7 @@ const pageProfile = {
         return false
       }
       const params = {
+        projectId: Util.findSelectpickerProjectId(),
         name: selectNameArr.join(','),
         platform: Util.judgeWebType(),
         auditStatus: 0, // 审核状态: 0未审核；1审核侵权；2不侵权;3审核中
@@ -230,6 +231,7 @@ const pageProfile = {
     const that = this
     return new Promise((resolve, reject) => {
       const params = {
+        projectId: Util.findSelectpickerProjectId(),
         author: $('.user-detail .user-name span').text().trim(),
         urlList: ablePhotoArr.map(li => { 
           return { url: li.url, title: li.title, author: li.author, timeSpan: li.timeSpan }
@@ -280,6 +282,7 @@ const pageProfile = {
       if (fdlStr) {
         const { timeSpan, title, url, publishDate, authorLink, author, h5Href } = JSON.parse(fdlStr)
         const params = {
+          projectId: Util.findSelectpickerProjectId(),
           name: selectNameArr.join(','),
           platform: Util.judgeWebType(),
           auditStatus: 2, // 审核状态: 0未审核；1审核侵权；2不侵权;3审核中
