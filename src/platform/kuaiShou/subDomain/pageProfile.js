@@ -274,6 +274,7 @@ const pageProfile = {
       const currentDom = $(this)
       that.setVideoNotTort(currentDom).then(h5Href => {
         currentDom.siblings('.not-tort').hide()
+        currentDom.parents('.video-card').find('.img-check').addClass('notAllow').attr('disabled', true)
         Util.windowOpen(h5Href)
       })
     })
