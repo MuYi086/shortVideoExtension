@@ -146,6 +146,7 @@ const pageProfile = {
       const ablePhotoArr = that.addJumpBtn(srcDomArr)
       if (ablePhotoArr.length > 0) {
         that.getUrlCheckList(ablePhotoArr).then(urlCheckList => {
+          that.unbindBtnEventAfterScroll()
           that.addVerifyBtn(urlCheckList, srcDomArr)
           that.createNotTortBtn()
           that.createJumpBtnEvent()
@@ -292,6 +293,10 @@ const pageProfile = {
         })
       }
     })
+  },
+  unbindBtnEventAfterScroll () {
+    $('.video-info-content .to-h5').unbind()
+    $('.video-info-content .not-tort').unbind()
   }
 }
 eventEmitter.on('kuaishou-profile', pageProfile.scrollEnd.bind(pageProfile))

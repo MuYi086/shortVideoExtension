@@ -1,7 +1,8 @@
 const ChromeStorage = require('@/utils/ChromeStorage')
 const GlobalApi = require('@/api')
 const btnAlert = require('@/platform/btnFn/btnAlert')
-const render = require('@/platform/render')
+const Util = require('@/utils/Util')
+// const render = require('@/platform/render')
 // const renderSelect = require('@/platform/render/renderSelect')
 function btnLogin () {
   $('#btn-wrapper .btn-login').click(function () {
@@ -22,7 +23,8 @@ function btnLogin () {
           // $('#previewWrap').show()
           // renderSelect()
           btnAlert('success', '登录成功')
-          render()
+          Util.refresh()
+          // render()
         })
       } else {
         btnAlert('danger', res.data.msg)

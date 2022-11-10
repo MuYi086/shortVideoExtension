@@ -119,7 +119,7 @@ const pageSearch = {
       const ablePhotoArr = that.addJumpBtn(srcDomArr)
       if (ablePhotoArr.length > 0) {
         that.getUrlCheckList(ablePhotoArr).then(urlCheckList => {
-          console.log(urlCheckList)
+          that.unbindBtnEventAfterScroll()
           that.addVerifyBtn(urlCheckList, srcDomArr)
           that.createNotTortBtn()
           that.createJumpBtnEvent()
@@ -237,6 +237,10 @@ const pageSearch = {
         })
       }
     })
+  },
+  unbindBtnEventAfterScroll () {
+    $('.video-info-content .to-h5').unbind()
+    $('.video-info-content .not-tort').unbind()
   }
 }
 eventEmitter.on('kuaishou-search', pageSearch.scrollEnd.bind(pageSearch))

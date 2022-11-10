@@ -53,7 +53,8 @@ export default {
       const that = this
       const params = {
         source: 1, // 来源表 0监测表；1 插件
-        auditStatus: 0 // 审核状态:0未审核；1审核侵权；2不侵权;3审核中
+        auditStatus: 0, // 审核状态:0未审核；1审核侵权；2不侵权;3审核中
+        projectId: 1 // 1标识3000部,稳定后会改成接口获取
       }
       this.loading = true
       this.GlobalApi.monitorWorkResultAuditUrlCollectList(params).then(res => {
