@@ -184,8 +184,8 @@ const pageHashTag = {
     const that = this
     return new Promise((resolve, reject) => {
       const params = {
-        urlList: ablePhotoArr.map(li => { 
-          return li.url
+        urlList: ablePhotoArr.map(li => {
+          return { url: li.url, title: li.title, author: li.author, timeSpan: li.timeSpan }
         })
       }
       Api.monitorWorkResultAuditUrlCheck(params).then(res => {

@@ -229,7 +229,7 @@ const pageProfile = {
       const params = {
         author: $('.user-detail .user-name span').text().trim(),
         urlList: ablePhotoArr.map(li => { 
-          return li.url
+          return { url: li.url, title: li.title, author: li.author, timeSpan: li.timeSpan }
          })
       }
       Api.monitorWorkResultAuditUrlCheck(params).then(res => {
