@@ -3,6 +3,7 @@ const Util = require('@/utils/Util')
 const Api = require('../api')
 const GlobalApi = require('@/api/index')
 const btnAlert = require('@/platform/btnFn/btnAlert')
+const selectpickerCheck = require('@/platform/common/selectpickerCheck')
 const pageProfile = {
   init: function () {
     const pathnameArr = location.pathname.split('/')
@@ -17,9 +18,7 @@ const pageProfile = {
     const collectHtml = `<div class="collect-wrap"><button type="button" class="btn btn-primary btn-collect btn-xs">批量收藏</button></div>`
     $('body').append(collectHtml)
     $('.collect-wrap .btn-collect').click(function () {
-      const selectNameArr = $('#monitor .selectpicker').val()
-      if (selectNameArr.length <= 0) {
-        btnAlert('danger', '请于插件下拉框选择作品名称')
+      if (!selectpickerCheck()) {
         return false
       }
       const params = {
@@ -233,9 +232,7 @@ const pageProfile = {
   },
   createJumpBtnEvent () {
     $('.video-info-content .to-h5').click(function () {
-      const selectNameArr = $('#monitor .selectpicker').val()
-      if (selectNameArr.length <= 0) {
-        btnAlert('danger', '请于插件下拉框选择作品名称')
+      if (!selectpickerCheck()) {
         return false
       }
       const fdlStr = $(this).parents('.video-card').find('.poster-img')[0].dataset['fdl']

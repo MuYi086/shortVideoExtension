@@ -1,30 +1,24 @@
 const GlobalApi = require('@/api')
 const Util = require('@/utils/Util')
 const btnAlert = require('@/platform/btnFn/btnAlert')
+const selectpickerCheck = require('@/platform/common/selectpickerCheck')
 function btnSubmit () {
   $('#btn-wrapper .btn-submit-tort').click(function () {
-    if (checkBeforeSubmit()) {
-      const params = constructParams()
-      params.auditStatus = 1
-      excuteTortNormal(params)
+    if (!selectpickerCheck()) {
+      return false
     }
+    const params = constructParams()
+    params.auditStatus = 1
+    excuteTortNormal(params)
   })
   $('#btn-wrapper .btn-submit-normal').click(function () {
-    if (checkBeforeSubmit()) {
-      const params = constructParams()
-      params.auditStatus = 2
-      excuteTortNormal(params)
+    if (!selectpickerCheck()) {
+      return false
     }
+    const params = constructParams()
+    params.auditStatus = 2
+    excuteTortNormal(params)
   })
-}
-function checkBeforeSubmit () {
-  const selectNameArr = $('#monitor .selectpicker').val()
-  if (selectNameArr.length === 0) {
-    btnAlert('danger', '请选择一个ip名称')
-    return false
-  } else {
-    return true
-  }
 }
 function constructParams () {
   const selectNameArr = $('#monitor .selectpicker').val()
@@ -32,7 +26,7 @@ function constructParams () {
   const params = {
     // id: '', // 作品唯一标识
     name: selectNameArr.join(','), // 作品名称
-    platform: Util.judgeWebType(), // 平台名称
+    platform: Util.judgeWebType() === '快手H5' ? '快手' : Util.judgeWebType(), // 平台名称
     source: 1, // 0:监测表;1:插件
     plugList: [
       {

@@ -7,6 +7,7 @@ function btnWorkAdd () {
     if (!val) {
       btnAlert('danger', 'IP名称不能为空')
     } else {
+      // const dealIpStr = val.replace(/，/ig, ',')
       const ipArr = val.split(',')
       ChromeStorage.set('workList', ipArr).then(() => {
         btnAlert('success', '添加IP成功')
