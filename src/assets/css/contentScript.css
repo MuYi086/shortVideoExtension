@@ -2,6 +2,9 @@ html {
   font-size: 12px !important;
 }
 /* 插件样式开始 */
+.notAllow {
+  cursor: not-allowed;
+}
 #monitor {
   position: fixed;
   font-size: 12px;

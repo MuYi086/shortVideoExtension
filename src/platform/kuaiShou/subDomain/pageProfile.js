@@ -170,16 +170,14 @@ const pageProfile = {
       if ($(sda).parents('.video-card').find('.video-info-content').find('.to-verify').length > 0) {
         continue
       }
-      // 添加多选框
-      if ($(sda).parents('.video-card-main').find('.img-check').length <= 0) {
-        $(sda).parents('.video-card-main').append(`<input class="img-check check-${m}" type="checkbox">`)
-      }
       const fdlStr = sda.dataset['fdl']
       const { url } = JSON.parse(fdlStr)
       let verifyDom = ''
+      let btnCheck = false
       for (let n = 0; n < urlCheckList.length; n++) {
         const ucl = urlCheckList[n]
         if (ucl.url === url) {
+          btnCheck = ucl.check
           // 构造审核btn
           if (ucl.check) {
             verifyDom = `<span class="to-verify verifyed">已审核</span><span class="to-verify not-verifyed disNone">未审核</span>`
@@ -191,7 +189,18 @@ const pageProfile = {
           break
         }
       }
+      // 追加审核按钮
       $(sda).parents('.video-card').find('.video-info-content .like-icon').before(verifyDom)
+      // 添加多选框:已审核过不允许收藏
+      if ($(sda).parents('.video-card-main').find('.img-check').length <= 0) {
+        let inputHtml = ''
+        if (btnCheck) {
+          inputHtml = `<input class="img-check check-${m} notAllow" disabled type="checkbox">`
+        } else {
+          inputHtml = `<input class="img-check check-${m}" type="checkbox">`
+        }
+        $(sda).parents('.video-card-main').append(inputHtml)
+      }
     }
   },
   getUrlCheckList (ablePhotoArr) {
