@@ -147,7 +147,7 @@ const pageSearch = {
         }
       }
       if (photo.url) {
-        const insertDom = `<button data-href="${photo.h5Href}" data-pchref="${photo.url}" type="button" class="to-h5 btn btn-primary btn-jump btn-xs">跳转</button>`
+        const insertDom = `<button data-href="${photo.h5Href}" data-pchref="${photo.url}" type="button" class="to-h5 btn btn-primary btn-jump btn-xs">播放</button>`
         $(sda).parents('.video-card').find('.video-info-content').prepend(insertDom)
       }
     }
