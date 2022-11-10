@@ -163,9 +163,11 @@ const pageHashTag = {
         url = fdlObj.url
       }
       let verifyDom = ''
+      let currentUcl = null
       for (let n = 0; n < urlCheckList.length; n++) {
         const ucl = urlCheckList[n]
         if (ucl.url === url) {
+          currentUcl = ucl
           // 构造审核btn
           if (ucl.check) {
             verifyDom = `<button type="button" class="not-tort btn btn-success btn-xs disNone">不侵权</button><span class="to-verify verifyed">已审核</span><span class="to-verify not-verifyed disNone">未审核</span>`
@@ -177,8 +179,8 @@ const pageHashTag = {
       }
       // 追加审核按钮
       $(sda).parents('.video-card').find('.video-info-content .like-icon').before(verifyDom)
-      // 追加时长过短提示
-      if (fdlObj && (fdlObj.timeSpan < 90)) {
+      // 追加白名单提示
+      if (currentUcl &&(currentUcl.authorWhite || currentUcl.titleWhite || currentUcl.urlWhite) || fdlObj && (fdlObj.timeSpan < 90)) {
         this.createShortTimeTip($(sda))
       }
     }
@@ -246,7 +248,7 @@ const pageHashTag = {
   },
   createShortTimeTip (currentDom) {
     if (currentDom.siblings('.short-time').length <= 0) {
-      const shortTimeHtml = `<div class="short-time">时长过短</div>`
+      const shortTimeHtml = `<div class="short-time">白名单</div>`
       currentDom.after(shortTimeHtml)
     }
   }

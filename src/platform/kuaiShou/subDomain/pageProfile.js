@@ -194,9 +194,11 @@ const pageProfile = {
       }
       let verifyDom = ''
       let btnCheck = false
+      let currentUcl = null
       for (let n = 0; n < urlCheckList.length; n++) {
         const ucl = urlCheckList[n]
         if (ucl.url === url) {
+          currentUcl = ucl
           btnCheck = ucl.check
           // 构造审核btn
           if (ucl.check) {
@@ -221,8 +223,8 @@ const pageProfile = {
         }
         $(sda).parents('.video-card-main').append(inputHtml)
       }
-      // 追加时长过短提示
-      if (fdlObj && (fdlObj.timeSpan < 90)) {
+      // 追加白名单提示
+      if (currentUcl &&(currentUcl.authorWhite || currentUcl.titleWhite || currentUcl.urlWhite) || fdlObj && (fdlObj.timeSpan < 90)) {
         this.createShortTimeTip($(sda))
       }
     }
@@ -306,7 +308,7 @@ const pageProfile = {
   },
   createShortTimeTip (currentDom) {
     if (currentDom.siblings('.short-time').length <= 0) {
-      const shortTimeHtml = `<div class="short-time">时长过短</div>`
+      const shortTimeHtml = `<div class="short-time">白名单</div>`
       currentDom.after(shortTimeHtml)
     }
   }
