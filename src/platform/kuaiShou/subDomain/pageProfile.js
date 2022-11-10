@@ -59,7 +59,7 @@ const pageProfile = {
     // 创建批量收藏按钮
     setTimeout(this.createCollectBtn.bind(that), 1500)
     // 监听videoContainer
-    setTimeout(that.watchVideoContainer.bind(that), 1500)
+    // setTimeout(that.watchVideoContainer.bind(that), 1500)
     // 防止给页面过滤数据时页面还未渲染完成，加个延时
     setTimeout(that.addFeedsList.bind(that), 1500)
   },
@@ -136,6 +136,10 @@ const pageProfile = {
     const that = this
     setTimeout(() => {
       const posterDomArr = Array.from(document.querySelectorAll('.poster-img'))
+      // 判断当前img条数和feedList长度,大于20时可以请求下一页了
+      if (posterDomArr.length - that.feedsList.length >= 20) {
+        that.addFeedsList(true)
+      }
       // 找出有真实src的图集
       const srcDomArr = posterDomArr.filter((li => {
         const uniqueKey = Util.randomUniqueKey()
