@@ -4,24 +4,23 @@ const btnAlert = require('@/platform/btnFn/btnAlert')
 const selectpickerCheck = require('@/platform/common/selectpickerCheck')
 function btnSubmit () {
   $('#btn-wrapper .btn-submit-tort').click(function () {
-    if (!selectpickerCheck()) {
-      return false
-    }
+    const selectNameArr = selectpickerCheck()
+    if (!selectNameArr) return false
     const params = constructParams()
     params.auditStatus = 1
     excuteTortNormal(params)
   })
   $('#btn-wrapper .btn-submit-normal').click(function () {
-    if (!selectpickerCheck()) {
-      return false
-    }
+    const selectNameArr = selectpickerCheck()
+    if (!selectNameArr) return false
     const params = constructParams()
     params.auditStatus = 2
     excuteTortNormal(params)
   })
 }
 function constructParams () {
-  const selectNameArr = $('#monitor .selectpicker').val()
+  const selectNameArr = selectpickerCheck()
+  if (!selectNameArr) return false
   const { userName, kwaiId, userLink, caption, videoUrl, durationStr, publishDate } = window.h5DetailData
   const params = {
     // id: '', // 作品唯一标识

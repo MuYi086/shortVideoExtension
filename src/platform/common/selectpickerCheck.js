@@ -5,7 +5,7 @@ const selectpickerCheck = function () {
     btnAlert('danger', '请于插件下拉框选择作品名称')
     return false
   } else {
-    return true
+    return selectNameArr
   }
 }
 module.exports = selectpickerCheck

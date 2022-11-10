@@ -18,9 +18,8 @@ const pageProfile = {
     const collectHtml = `<div class="collect-wrap"><button type="button" class="btn btn-primary btn-collect btn-xs">批量收藏</button></div>`
     $('body').append(collectHtml)
     $('.collect-wrap .btn-collect').click(function () {
-      if (!selectpickerCheck()) {
-        return false
-      }
+      const selectNameArr = selectpickerCheck()
+      if (!selectNameArr) return false
       const params = {
         name: selectNameArr.join(','),
         platform: Util.judgeWebType(),
@@ -231,14 +230,21 @@ const pageProfile = {
     return arr
   },
   createJumpBtnEvent () {
+    const that = this
     $('.video-info-content .to-h5').click(function () {
-      if (!selectpickerCheck()) {
-        return false
-      }
-      const fdlStr = $(this).parents('.video-card').find('.poster-img')[0].dataset['fdl']
+      const currentDom = $(this)
+      that.setVideoNotTort(currentDom).then(h5Href => {
+        Util.windowOpen(h5Href)
+      })
+    })
+  },
+  setVideoNotTort (currentDom) {
+    return new Promise((resolve, reject) => {
+      const selectNameArr = selectpickerCheck()
+      if (!selectNameArr) return false
+      const fdlStr = currentDom.parents('.video-card').find('.poster-img')[0].dataset['fdl']
       if (fdlStr) {
         const { timeSpan, title, url, publishDate, authorLink, author, h5Href } = JSON.parse(fdlStr)
-        const authorId = ''
         const params = {
           name: selectNameArr.join(','),
           platform: Util.judgeWebType(),
@@ -248,11 +254,11 @@ const pageProfile = {
         }
         GlobalApi.monitorWorkResultAuditPlug(params).then(res => {
           if (res) {
-            $(this).parents('.video-card').find('.to-verify.verifyed').show().siblings('.to-verify.not-verifyed').hide()
-            Util.windowOpen(h5Href)
+            currentDom.parents('.video-card').find('.to-verify.verifyed').show().siblings('.to-verify.not-verifyed').hide()
+            resolve(h5Href)
           }
         }).catch(err => {
-          console.log(err)
+          reject(err)
         })
       }
     })
