@@ -4,27 +4,27 @@ const kuaiShouH5App = require('./kuaiShouH5')
 function pluginRegister () {
   const siteName = Util.judgeWebType(location.hostname, 0)
   switch (siteName) {
-    case '抖音':
+    case '西瓜视频':
+      break
+    case '哔哩哔哩':
+      break
+    case '腾讯视频':
+      break
+    case '优酷视频':
+      break
+    case '抖音短视频':
+      break
+    case '微博视频':
       break
     case '快手':
       return kuaiShouApp
     case '快手H5':
       return kuaiShouH5App
-    case '西瓜':
+    case '小红书':
       break
-    case '哔哩哔哩':
+    case '芒果tv':
       break
-    case '好看':
-      break
-    case '搜狐':
-      break
-    case '微博':
-      break
-    case '优酷':
-      break
-    case '土豆':
-      break
-    case 'qq':
+    case '今日头条':
       break
     default:
       return kuaiShouApp
