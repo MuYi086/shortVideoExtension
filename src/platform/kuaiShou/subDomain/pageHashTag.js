@@ -180,7 +180,7 @@ const pageHashTag = {
       // 追加审核按钮
       $(sda).parents('.video-card').find('.video-info-content .like-icon').before(verifyDom)
       // 追加白名单提示
-      if (currentUcl &&(currentUcl.authorWhite || currentUcl.titleWhite || currentUcl.urlWhite) || fdlObj && (fdlObj.timeSpan < 90)) {
+      if (currentUcl &&(currentUcl.authorWhite || currentUcl.titleWhite || currentUcl.urlWhite || currentUcl.timesWhite)) {
         this.createShortTimeTip($(sda))
       }
     }
@@ -190,6 +190,7 @@ const pageHashTag = {
     return new Promise((resolve, reject) => {
       const params = {
         projectId: Util.findSelectpickerProjectId(),
+        platform: Util.judgeWebType(),
         plugList: ablePhotoArr.map(li => {
           return { url: li.url, title: li.title, author: li.author, timeSpan: li.timeSpan }
         })
