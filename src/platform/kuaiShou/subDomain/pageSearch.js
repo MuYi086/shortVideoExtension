@@ -105,7 +105,9 @@ const pageSearch = {
   },
   scrollEnd () {
     const that = this
+    window.TIMESTEP2 = performance.now()
     setTimeout(() => {
+      window.TIMESTEP3 = performance.now()
       // 搜索按钮重置滚动条时,默认放行
       if (!Util.getScrollTop()) return false
       if (!selectpickerCheckProject()) return false
@@ -121,13 +123,29 @@ const pageSearch = {
         if (!li.akKey) li.akKey = uniqueKey
         if (li.src.includes('upic')) return li
       }))
+      window.TIMESTEP4 = performance.now()
       const ablePhotoArr = that.addJumpBtn(srcDomArr)
+      window.TIMESTEP5 = performance.now()
       if (ablePhotoArr.length > 0) {
         that.getUrlCheckList(ablePhotoArr).then(urlCheckList => {
+          window.TIMESTEP6 = performance.now()
           that.unbindBtnEventAfterScroll()
           that.addVerifyBtn(urlCheckList, srcDomArr)
+          window.TIMESTEP7 = performance.now()
           that.createNotTortBtn()
           that.createJumpBtnEvent()
+          setTimeout(() => {
+            window.TIMESTEP8 = performance.now()
+            console.log('-------------------------时间计时----------------------')
+            console.log('滚动条停止:' + window.TIMESTEP1)
+            console.log('页面接收事件:' + window.TIMESTEP2)
+            console.log('定时器结束:' + window.TIMESTEP3)
+            console.log('遍历比较找出已加载数据的dom:' + window.TIMESTEP4)
+            console.log('遍历添加播放按钮:' + window.TIMESTEP5)
+            console.log('urlcheck接口返回:' + window.TIMESTEP6)
+            console.log('渲染侵权状态:' + window.TIMESTEP7)
+            console.log('渲染完成后:' + window.TIMESTEP8)
+          }, 0)
         })
       }
     }, 500)

@@ -13,12 +13,12 @@ function jqueryScrollInit () {
   $(window).scrollEnd(function () {
     const { pathname } = location
     const webDir = pathname.split('/')[1]
-    console.log(webDir, '--------hr----------')
     switch (webDir) {
       case 'profile':
         eventEmitter.emit('kuaishou-profile', '')
         break
       case 'search':
+        window.TIMESTEP1 = performance.now()
         eventEmitter.emit('kuaishou-search', '')
         break
       case 'hashtag':
