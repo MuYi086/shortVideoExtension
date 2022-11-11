@@ -280,6 +280,9 @@ function constructWhiteHtml (currentUcl) {
   if (currentUcl.urlWhite) {
     content += '<div class="white-li">链接白名单</div>'
   }
+  if (currentUcl.dateWhite) {
+    content += '<div class="white-li">发布日期白名单</div>'
+  }
   const html = `${header}${content}${tail}`
   return html
 }

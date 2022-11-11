@@ -190,6 +190,7 @@ const pageHashTag = {
     return new Promise((resolve, reject) => {
       const params = {
         projectId: Util.findSelectpickerProjectId(),
+        name: selectpickerCheckIp().join(','),
         platform: Util.judgeWebType(),
         plugList: ablePhotoArr.map(li => {
           return { url: li.url, title: li.title, author: li.author, timeSpan: li.timeSpan, publishDate: li.publishDate }

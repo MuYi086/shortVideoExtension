@@ -1,8 +1,12 @@
 const ChromeStorage = require('@/utils/ChromeStorage')
 const GlobalApi = require('@/api')
+const btnAlert = require('@/platform/btnFn/btnAlert')
 const renderProjectSelect = async function () {
   const projectRes = await GlobalApi.monitorProjectList()
   const list = projectRes.data.data || []
+  if (list.length === 0) {
+    btnAlert('danger', '获取项目列表失败')
+  }
   window.SELECTPICKERPROJECTLIST = list
   ChromeStorage.set('selectpicker-projectList', list)
   const selectHtml = constructSelectList(list)

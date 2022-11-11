@@ -235,6 +235,7 @@ const pageProfile = {
       const params = {
         projectId: Util.findSelectpickerProjectId(),
         platform: Util.judgeWebType(),
+        name: selectpickerCheckIp().join(','),
         author: $('.user-detail .user-name span').text().trim(),
         plugList: ablePhotoArr.map(li => { 
           return { url: li.url, title: li.title, author: li.author, timeSpan: li.timeSpan, publishDate: li.publishDate }

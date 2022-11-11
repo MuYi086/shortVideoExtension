@@ -202,6 +202,7 @@ const pageSearch = {
       const params = {
         projectId: Util.findSelectpickerProjectId(),
         platform: Util.judgeWebType(),
+        name: selectpickerCheckIp().join(','),
         plugList: ablePhotoArr.map(li => { 
           return { url: li.url, title: li.title, author: li.author, timeSpan: li.timeSpan, publishDate: li.publishDate }
         })

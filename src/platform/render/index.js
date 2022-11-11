@@ -8,12 +8,12 @@ const CountDown = require('@/utils/common/CountDown')
 const render = async function () {
   if (CountDown()) {
     renderClear()
-    const renderPreviewHtml = await renderPreview()
-    const renderLoginHtml = renderLogin()
     const renderAlertHtml = renderAlert()
-    const monitorWrap = `<div id="monitor">${renderPreviewHtml}${renderLoginHtml}</div>`
     // 优先渲染提示组件,方便后续接口报错可以弹出提示
     $('body').append(renderAlertHtml)
+    const renderPreviewHtml = await renderPreview()
+    const renderLoginHtml = renderLogin()
+    const monitorWrap = `<div id="monitor">${renderPreviewHtml}${renderLoginHtml}</div>`
     $('body').append(monitorWrap)
     const storageSelectpickerProject = await ChromeStorage.get('selectpicker-project')
     const storageSelectpickerIp = await ChromeStorage.get('selectpicker-ip')
