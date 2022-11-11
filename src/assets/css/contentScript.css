@@ -143,12 +143,16 @@ html {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 40px;
-  line-height: 40px;
-  background: rgba(0, 0, 0, .5);
-  color: #d9534f;
+  max-height: 120px;
+  background: rgba(0, 0, 0, .8);
   text-align: center;
-  font-size: 30px;
+  
   z-index: 999;
+}
+.poster .short-time .white-li {
+  height: 30px;
+  font-size: 18px;
+  line-height: 30px;
+  color: #fff;
 }
 /* 个人中心页面样式结束 */

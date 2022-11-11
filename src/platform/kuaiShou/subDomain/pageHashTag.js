@@ -180,8 +180,8 @@ const pageHashTag = {
       // 追加审核按钮
       $(sda).parents('.video-card').find('.video-info-content .like-icon').before(verifyDom)
       // 追加白名单提示
-      if (currentUcl &&(currentUcl.authorWhite || currentUcl.titleWhite || currentUcl.urlWhite || currentUcl.timesWhite)) {
-        this.createShortTimeTip($(sda))
+      if (currentUcl) {
+        this.createShortTimeTip($(sda), currentUcl)
       }
     }
   },
@@ -247,9 +247,9 @@ const pageHashTag = {
     $('.video-info-content .to-h5').unbind()
     $('.video-info-content .not-tort').unbind()
   },
-  createShortTimeTip (currentDom) {
+  createShortTimeTip (currentDom, currentUcl) {
     if (currentDom.siblings('.short-time').length <= 0) {
-      const shortTimeHtml = `<div class="short-time">白名单</div>`
+      const shortTimeHtml = Util.constructWhiteHtml(currentUcl)
       currentDom.after(shortTimeHtml)
     }
   }

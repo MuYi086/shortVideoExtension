@@ -263,6 +263,27 @@ function getScrollTop () {
   return top
 }
 
+// 构造白名单html
+function constructWhiteHtml (currentUcl) {
+  const header = '<div class="short-time">'
+  const tail = '</div>'
+  let content = ''
+  if (currentUcl.authorWhite) {
+    content += '<div class="white-li">作者白名单</div>'
+  }
+  if (currentUcl.timesWhite) {
+    content += '<div class="white-li">时长白名单</div>'
+  }
+  if (currentUcl.titleWhite) {
+    content += '<div class="white-li">标题白名单</div>'
+  }
+  if (currentUcl.urlWhite) {
+    content += '<div class="white-li">链接白名单</div>'
+  }
+  const html = `${header}${content}${tail}`
+  return html
+}
+
 const Util = {
   addZero,
   newTimeStamp,
@@ -288,7 +309,8 @@ const Util = {
   refresh,
   windowOpen,
   findSelectpickerProjectId,
-  getScrollTop
+  getScrollTop,
+  constructWhiteHtml
 }
 
 module.exports = Util
