@@ -237,7 +237,7 @@ const pageProfile = {
         platform: Util.judgeWebType(),
         author: $('.user-detail .user-name span').text().trim(),
         plugList: ablePhotoArr.map(li => { 
-          return { url: li.url, title: li.title, author: li.author, timeSpan: li.timeSpan }
+          return { url: li.url, title: li.title, author: li.author, timeSpan: li.timeSpan, publishDate: li.publishDate }
         })
       }
       Api.monitorWorkResultAuditUrlCheck(params).then(res => {

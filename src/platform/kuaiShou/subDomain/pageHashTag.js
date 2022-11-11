@@ -192,7 +192,7 @@ const pageHashTag = {
         projectId: Util.findSelectpickerProjectId(),
         platform: Util.judgeWebType(),
         plugList: ablePhotoArr.map(li => {
-          return { url: li.url, title: li.title, author: li.author, timeSpan: li.timeSpan }
+          return { url: li.url, title: li.title, author: li.author, timeSpan: li.timeSpan, publishDate: li.publishDate }
         })
       }
       Api.monitorWorkResultAuditUrlCheck(params).then(res => {
