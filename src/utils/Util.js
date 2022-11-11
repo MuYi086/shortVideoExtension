@@ -257,6 +257,12 @@ function findSelectpickerProjectId (name, arr = window.SELECTPICKERPROJECTLIST) 
   return projectId
 }
 
+// 获取当前滚动条位置
+function getScrollTop () {
+  const top = (document.documentElement && document.documentElement.scrollTop) ? document.documentElement.scrollTop : document.body.scrollTop
+  return top
+}
+
 const Util = {
   addZero,
   newTimeStamp,
@@ -281,7 +287,8 @@ const Util = {
   randomUniqueKey,
   refresh,
   windowOpen,
-  findSelectpickerProjectId
+  findSelectpickerProjectId,
+  getScrollTop
 }
 
 module.exports = Util
