@@ -313,5 +313,14 @@ const pageProfile = {
     }
   }
 }
-eventEmitter.on('kuaishou-profile', pageProfile.scrollEnd.bind(pageProfile))
+function scrollEventBeaforeCheckToken () {
+  Util.checkLogin().then(res => {
+    if (res) {
+      pageProfile.scrollEnd.call(pageProfile)
+    } else {
+      btnAlert('danger', '请登录')
+    }
+  })
+}
+eventEmitter.on('kuaishou-profile', scrollEventBeaforeCheckToken)
 module.exports = pageProfile

@@ -12,6 +12,7 @@ const pageSearch = {
     this.searchSessionId = ''
     this.isInputStopTimes = 0
     this.getData()
+    this.monitorSearchInput()
   },
   createNotTortBtn () {
     const that = this
@@ -23,6 +24,12 @@ const pageSearch = {
         btnAlert('success', '已审核')
         $(this).hide()
       })
+    })
+  },
+  monitorSearchInput () {
+    const that = this
+    $('.search-input').focus(function () {
+      that.reset()
     })
   },
   getData () {
@@ -252,5 +259,14 @@ const pageSearch = {
     }
   }
 }
-eventEmitter.on('kuaishou-search', pageSearch.scrollEnd.bind(pageSearch))
+function scrollEventBeaforeCheckToken () {
+  Util.checkLogin().then(res => {
+    if (res) {
+      pageSearch.scrollEnd.call(pageSearch)
+    } else {
+      btnAlert('danger', '请登录')
+    }
+  })
+}
+eventEmitter.on('kuaishou-search', scrollEventBeaforeCheckToken)
 module.exports = pageSearch

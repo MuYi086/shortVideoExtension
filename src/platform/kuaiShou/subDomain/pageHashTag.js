@@ -253,5 +253,14 @@ const pageHashTag = {
     }
   }
 }
-eventEmitter.on('kuaishou-hashtag', pageHashTag.scrollEnd.bind(pageHashTag))
+function scrollEventBeaforeCheckToken () {
+  Util.checkLogin().then(res => {
+    if (res) {
+      pageHashTag.scrollEnd.call(pageHashTag)
+    } else {
+      btnAlert('danger', '请登录')
+    }
+  })
+}
+eventEmitter.on('kuaishou-hashtag', scrollEventBeaforeCheckToken)
 module.exports = pageHashTag
