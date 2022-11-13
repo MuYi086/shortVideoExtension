@@ -2,7 +2,8 @@ let API_URL = 'http://192.168.1.58:8094/'
 const windowWH = { windowW: null, windowH: null } // 全局的窗口高度和宽度
 // 开发环境
 if (process.env.NODE_ENV === 'development') {
-  API_URL = 'https://626439j4z2.zicp.fun/'
+  // API_URL = 'https://626439j4z2.zicp.fun/'
+  API_URL = 'https://31743s092p.goho.co/'
 }
 // 测试环境
 if (process.env.NODE_ENV === 'test') {
@@ -10,7 +11,8 @@ if (process.env.NODE_ENV === 'test') {
 }
 // 生产环境
 if (process.env.NODE_ENV === 'production') {
-  API_URL = 'https://626439j4z2.zicp.fun/'
+  // API_URL = 'https://626439j4z2.zicp.fun/'
+  API_URL = 'https://31743s092p.goho.co/'
 }
 const Config = {
   API_URL,

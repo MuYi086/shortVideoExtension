@@ -5,7 +5,7 @@ const renderEditSelect = async function () {
   if (workList) {
     const editSelectHtml1 = `
       <div id="work-add" class="disNone">
-        <textarea value="" placeholder="请输入IP名称，使用英文逗号分割"></textarea>
+        <textarea value="" placeholder="请输入IP名称，使用$分割"></textarea>
         <button type="button" class="btn btn-workAdd btn-logout btn-xs">添加</button>
       </div>
       <div id="work-select">${selectHtml}</div>
@@ -14,7 +14,7 @@ const renderEditSelect = async function () {
   } else {
     const editSelectHtml2 = `
       <div id="work-add">
-        <textarea value="" placeholder="请输入IP名称，使用逗号分割"></textarea>
+        <textarea value="" placeholder="请输入IP名称，使用$分割"></textarea>
         <button type="button" class="btn btn-workAdd btn-logout btn-xs">添加</button>
       </div>
       <div id="work-select" class="disNone">${selectHtml}</div>
