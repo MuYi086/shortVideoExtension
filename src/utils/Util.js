@@ -268,6 +268,7 @@ function constructWhiteHtml (currentUcl) {
   const header = '<div class="short-time">'
   const tail = '</div>'
   let content = []
+  let html = ''
   if (currentUcl.authorWhite) {
     content.push('作者')
   }
@@ -283,7 +284,11 @@ function constructWhiteHtml (currentUcl) {
   if (currentUcl.dateWhite) {
     content.push('发布日期')
   }
-  const html = `${header}白名单:${content.join(',')}${tail}`
+  if (content.length > 0) {
+    html = `${header}白名单:${content.join(',')}${tail}`
+  } else {
+    html = `${header}${tail}`
+  }
   return html
 }
 
