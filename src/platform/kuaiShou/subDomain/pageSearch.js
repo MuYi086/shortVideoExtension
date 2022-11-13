@@ -48,8 +48,6 @@ const pageSearch = {
   addFeedsList (isAddSearchSessionId = false) {
     const that = this
     that.count += 1
-    // const queryObj = Util.getQuery(location.search)
-    // that.keyword = decodeURI(queryObj.searchKey)
     that.keyword = $('.search-input').val()
     const params = {
       operationName: 'visionSearchPhoto',
@@ -198,18 +196,18 @@ const pageSearch = {
         if (ucl.url === url) {
           currentUcl = ucl
           // 构造审核btn
-          if (ucl.check) {
-            verifyDom = `<button type="button" class="not-tort btn btn-success btn-xs disNone">不侵权</button><span class="to-verify verifyed">已审核</span><span class="to-verify not-verifyed disNone">未审核</span>`
-          } else {
-            verifyDom = `<button type="button" class="not-tort btn btn-success btn-xs">不侵权</button><span class="to-verify verifyed disNone">已审核</span><span class="to-verify not-verifyed">未审核</span>`
+          if (ucl.auditStatus === 0) {
+            verifyDom = `<button type="button" class="not-tort btn btn-success btn-xs">设为不侵权</button>`
           }
           break
         }
       }
       // 追加审核按钮
       $(sda).parents('.video-card').find('.video-info-content .like-icon').before(verifyDom)
-      // 追加白名单提示
       if (currentUcl) {
+        // 追加审核状态提示
+        this.createVerifyStatusTip($(sda), currentUcl)
+        // 追加白名单提示
         this.createShortTimeTip($(sda), currentUcl)
       }
     }
@@ -264,7 +262,7 @@ const pageSearch = {
         }
         GlobalApi.monitorWorkResultAuditPlug(params).then(res => {
           if (res) {
-            currentDom.parents('.video-card').find('.to-verify.verifyed').show().siblings('.to-verify.not-verifyed').hide()
+            currentDom.parents('.video-card').find('.verify-false').show().siblings('.verify-true').hide().siblings('.not-verifyed').hide()
             resolve(h5Href)
           }
         }).catch(err => {
@@ -281,6 +279,12 @@ const pageSearch = {
     if (currentDom.siblings('.short-time').length <= 0) {
       const shortTimeHtml = Util.constructWhiteHtml(currentUcl)
       currentDom.after(shortTimeHtml)
+    }
+  },
+  createVerifyStatusTip (currentDom, currentUcl) {
+    if (currentDom.siblings('.verify-status').length <= 0) {
+      const verifyStatusHtml = Util.constructVerifyHtml(currentUcl)
+      currentDom.after(verifyStatusHtml)
     }
   }
 }

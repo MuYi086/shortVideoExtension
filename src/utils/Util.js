@@ -292,6 +292,29 @@ function constructWhiteHtml (currentUcl) {
   return html
 }
 
+// 构造审核html 审核状态:0未审核；1审核侵权；2不侵权;3审核中
+function constructVerifyHtml (currentUcl) {
+  const header = '<div class="verify-status">'
+  const tail = '</div>'
+  let content = []
+  let html = ''
+  switch (currentUcl.auditStatus) {
+    case 0:
+      content = `<span class="to-verify verify-true disNone">审核侵权</span><span class="to-verify verify-false disNone">不侵权</span><span class="to-verify not-verifyed">未审核</span>`
+      break
+    case 1:
+      content = `<span class="to-verify verify-true">审核侵权</span><span class="to-verify verify-false disNone">不侵权</span><span class="to-verify not-verifyed disNone">未审核</span>`
+      break
+    case 2:
+      content = `<span class="to-verify verify-true disNone">审核侵权</span><span class="to-verify verify-false">不侵权</span><span class="to-verify not-verifyed disNone">未审核</span>`
+      break
+    default:
+      break
+  }
+  html = `${header}审核状态:${content}${tail}`
+  return html
+}
+
 const Util = {
   addZero,
   newTimeStamp,
@@ -318,7 +341,8 @@ const Util = {
   windowOpen,
   findSelectpickerProjectId,
   getScrollTop,
-  constructWhiteHtml
+  constructWhiteHtml,
+  constructVerifyHtml
 }
 
 module.exports = Util
