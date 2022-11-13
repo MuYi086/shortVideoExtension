@@ -193,13 +193,11 @@ const pageProfile = {
         url = fdlObj.url
       }
       let verifyDom = ''
-      let btnCheck = false
       let currentUcl = null
       for (let n = 0; n < urlCheckList.length; n++) {
         const ucl = urlCheckList[n]
         if (ucl.url === url) {
           currentUcl = ucl
-          btnCheck = ucl.check
           // 构造审核btn
           if (ucl.auditStatus === 0) {
             verifyDom = `<button type="button" class="not-tort btn btn-success btn-xs">设为不侵权</button>`
@@ -214,7 +212,7 @@ const pageProfile = {
       // 添加多选框:已审核过不允许收藏
       if ($(sda).parents('.video-card-main').find('.img-check').length <= 0) {
         let inputHtml = ''
-        if (btnCheck) {
+        if (currentUcl && (currentUcl.auditStatus === 1 || currentUcl.auditStatus === 2)) {
           inputHtml = `<input class="img-check check-${m} notAllow" disabled type="checkbox">`
         } else {
           inputHtml = `<input class="img-check check-${m}" type="checkbox">`
