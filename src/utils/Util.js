@@ -267,23 +267,23 @@ function getScrollTop () {
 function constructWhiteHtml (currentUcl) {
   const header = '<div class="short-time">'
   const tail = '</div>'
-  let content = ''
+  let content = []
   if (currentUcl.authorWhite) {
-    content += '<div class="white-li">作者白名单</div>'
+    content.push('作者')
   }
   if (currentUcl.timesWhite) {
-    content += '<div class="white-li">时长白名单</div>'
+    content.push('时长')
   }
   if (currentUcl.titleWhite) {
-    content += '<div class="white-li">标题白名单</div>'
+    content.push('标题')
   }
   if (currentUcl.urlWhite) {
-    content += '<div class="white-li">链接白名单</div>'
+    content.push('链接')
   }
   if (currentUcl.dateWhite) {
-    content += '<div class="white-li">发布日期白名单</div>'
+    content.push('发布日期')
   }
-  const html = `${header}${content}${tail}`
+  const html = `${header}白名单:${content.join(',')}${tail}`
   return html
 }
 
