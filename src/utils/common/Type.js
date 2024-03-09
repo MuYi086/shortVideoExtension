@@ -2,7 +2,7 @@
  * @Author: yanglu
  * @Email: 1258947325@qq.com
  * @Intro: 对js类型判断
- * @Blog: https://github.com/ougege/blog
+ * @Blog: https://github.com/MuYi086/blog
  * @Date: 2017/10/21
  * @Update: 2021/12/23 11:26
  */
